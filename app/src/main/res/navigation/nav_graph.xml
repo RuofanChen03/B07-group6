@@ -17,12 +17,22 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.example.myapplication.SecondFragment"
+        android:name="com.example.myapplication.AdminCourseManagement"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_second">
 
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_SecondFragment_to_AdminCreate"
+            app:destination="@id/AdminCreate" />
+    </fragment>
+    <fragment
+        android:id="@+id/AdminCreate"
+        android:name="com.example.myapplication.AdminCreateCourse"
+        android:label="admin_add_new_course"
+        tools:layout="@layout/admin_add_new_course">
+
+        <action
+            android:id="@+id/action_AdminCreate_to_SecondFragment"
+            app:destination="@id/AdminCreate"/>
     </fragment>
 </navigation>

@@ -27,7 +27,6 @@ public class Course {
         this.prerequisites = prerequisites;
     }
 
-    public void AddPrerequisite(Course course){
-        prerequisites.add(course);
-    }
+    public void AddPrerequisite(Course course) { prerequisites.add(course); }
+
 }
