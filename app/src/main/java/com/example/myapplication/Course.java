@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Course {
@@ -7,6 +8,8 @@ public class Course {
     String courseCode;
     boolean[] sessions;
     List<Course> prerequisites;
+
+    static ArrayList<Course> courseList;
 
     //default course initializer
     public Course(){

@@ -19,11 +19,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AdminFragment extends Fragment{
+    ////////////////////////////////
     //TESTING FUNCTIONS
     private ArrayList<Course> createDummy(){
+        Course A48 = new Course("Intro to Comp Sci", "CSCA48", new boolean[]{false, true, true}, null);
+        ArrayList<Course>prereqs = new ArrayList<Course>();
+        prereqs.add(A48);
         Course B09 = new Course("Systems Programming", "CSCB09", new boolean[]{false, true, true}, null);
 
-        ArrayList<Course> prereqs = new ArrayList<Course>();
+        //ArrayList<Course> prereqs = new ArrayList<Course>();
         prereqs.add(B09);
         Course C37 = new Course("Computational Mathematics", "CSCC37", new boolean[]{true, false, false}, prereqs);
 
@@ -37,6 +41,7 @@ public class AdminFragment extends Fragment{
     }
 
     ArrayList<Course> dummy = createDummy();
+    /////////////////////////////////
 
     //REAL FUNCTIONS
     private AdminFragmentBinding binding;
@@ -61,6 +66,10 @@ public class AdminFragment extends Fragment{
              **/
         }
         return binding.getRoot();
+    }
+
+    public ArrayList<Course> addNewCourse(){
+        return null; //placeholder
     }
 
 }
