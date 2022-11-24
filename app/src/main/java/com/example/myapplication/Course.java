@@ -8,12 +8,15 @@ public class Course {
     boolean[] sessions;
     List<Course> prerequisites;
 
+    //default course initializer
     public Course(){
         courseName = "";
         courseCode = "";
         sessions = new boolean[3];
+        prerequisites = null;
     }
 
+    //full course initializer
     public Course(String name, String code, boolean[] sessions, List<Course> prerequisites){
         this.courseName = name;
         this.courseCode = code;
