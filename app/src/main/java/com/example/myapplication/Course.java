@@ -8,6 +8,8 @@ public class Course {
     boolean[] sessions;
     List<Course> prerequisites;
 
+    static List<Course> courseList;
+
     //default course initializer
     public Course(){
         courseName = "";

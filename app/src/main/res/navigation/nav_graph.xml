@@ -22,7 +22,30 @@
         tools:layout="@layout/fragment_second">
 
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_SecondFragment_to_AdminEdit"
+            app:destination="@id/AdminEdit"/>
+        <action
+            android:id="@+id/action_SecondFragment_to_AdminCreate"
+            app:destination="@id/AdminCreate"/>
+    </fragment>
+    <fragment
+        android:id="@+id/AdminEdit"
+        android:name="com.example.myapplication.AdminEdit"
+        android:label="Edit or Delete Courses"
+        tools:layout="@layout/fragment_admin_edit">
+
+        <action
+            android:id="@+id/action_AdminEdit_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/AdminCreate"
+        android:name="com.example.myapplication.AdminCreate"
+        android:label="Add a new course"
+        tools:layout="@layout/fragment_admin_create">
+
+        <action
+            android:id="@+id/action_AdminCreate_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
     </fragment>
 </navigation>
