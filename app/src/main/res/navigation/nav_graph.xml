@@ -3,26 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/AdminLogin">
 
     <fragment
-        android:id="@+id/FirstFragment"
+        android:id="@+id/AdminLogin"
         android:name="com.example.myapplication.AdminLogin"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_first">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            app:destination="@id/AdminFragment" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.example.myapplication.AdminCourseManagement"
-        android:label="@string/second_fragment_label"
+        android:id="@+id/AdminFragment"
+        android:name="com.example.myapplication.AdminFragment"
+        android:label="AdminFragment"
         tools:layout="@layout/fragment_second">
 
         <action
-            android:id="@+id/action_SecondFragment_to_AdminCreate"
+            android:id="@+id/action_AdminManagement_to_AdminCreate"
             app:destination="@id/AdminCreate" />
     </fragment>
     <fragment

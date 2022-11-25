@@ -33,7 +33,7 @@ public class AdminCourseManagement extends Fragment {
             @Override
             public void onClick(View view) {
                 NavHostFragment.findNavController(AdminCourseManagement.this)
-                        .navigate(R.id.action_SecondFragment_to_AdminCreate);
+                        .navigate(R.id.action_AdminManagement_to_AdminCreate);
             }
         });
 
