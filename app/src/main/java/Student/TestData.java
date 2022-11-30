@@ -221,4 +221,62 @@ public class TestData {
 
     }
 
+    //future courses data
+    public TestData(String a){
+
+        //course12;
+        ArrayList<String> os12 = new ArrayList<String>();
+        os12.add("W");
+        os12.add("S");
+        ArrayList<String> pre12 = new ArrayList<String>();
+        pre12.add("MATB23");
+        pre12.add("STAB52");
+        CourseList c12 = new CourseList("CSCA56","c12",os12,pre12);
+
+        //course13;
+        ArrayList<String> os13 = new ArrayList<String>();
+        os13.add("W");
+        ArrayList<String> pre13 = new ArrayList<String>();
+        pre13.add("CSCC67");
+        pre13.add("CSCC37");
+        CourseList c13 = new CourseList("CSCD11","c13",os13,pre13);
+
+        //course14;
+        ArrayList<String> os14 = new ArrayList<String>();
+        os14.add("W");
+        os14.add("F");
+        os14.add("S");
+        ArrayList<String> pre14 = new ArrayList<String>();
+        pre14.add("MATB23");
+        pre14.add("STAB52");
+        pre14.add("CSCC61");
+        CourseList c14 = new CourseList("CSCD53","c14",os14,pre14);
+
+        //course15;
+        ArrayList<String> os15 = new ArrayList<String>();
+        os15.add("W");
+        ArrayList<String> pre15 = new ArrayList<String>();
+        pre15.add("CSCD53");
+        CourseList c15 = new CourseList("CSCD77","c15",os15,pre15);
+
+
+        HashSet<CourseList> set = new HashSet<CourseList>();
+        set.add(c12);
+        set.add(c13);
+        set.add(c14);
+        set.add(c15);
+
+        testCourse = set;
+
+        //初始化course code list
+        //List<String> courseCodeList = new ArrayList<String>();
+        courseCodeList = new ArrayList<String>();
+        for (CourseList Course: testCourse) {
+            courseCodeList.add(Course.courseCode);
+        }
+        //courseCodeList = CCL.toArray(new String[CCL.size()]);
+
+
+    }
+
 }

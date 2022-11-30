@@ -13,6 +13,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.*;
 
 
@@ -39,15 +42,6 @@ public class Student_View_Past_activity extends AppCompatActivity {
                     Course.prerequisite  +'\n';
         }
 
-        //Iterator<CourseList> C = TestCourses.iterator();
-        //while (C.hasNext()) {
-          //  CourseList next = C.next();
-           // text = text + next.courseCode + '\n';
-       // }
-
-        //for (int i=1;i<30;i=i+1){
-       //     text=text+"Show this Show this Show this Show this Show this Show this\n";
-        //}
 
         //更改数据显示
         TextView PCL = (TextView) findViewById(R.id.PastCourseList);
@@ -67,13 +61,17 @@ public class Student_View_Past_activity extends AppCompatActivity {
         add_past.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Firebase添加数据
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference myRef = database.getReference("message");
+
+                myRef.setValue("Hello, World!");
                 //Intent intent = new Intent( Student_View_Past_activity.this,Student_Add_Past.class);
                 //startActivity(intent);
                 //finish();
                 AutoCompleteTextView CCV = (AutoCompleteTextView) findViewById(R.id.add_Past_Choice);
                 String CC =  CCV.getText().toString();
 
-                //CC.trim();
                 //判断是否在可选的课程列表中
                 if (!ChoiceList.courseCodeList.contains(CC)){
                     Toast.makeText(Student_View_Past_activity.this, "The Course is not available now. Please re-enter.", Toast.LENGTH_SHORT).show();
@@ -100,6 +98,7 @@ public class Student_View_Past_activity extends AppCompatActivity {
                 //TestData Test = new Student.TestData(1);
                 //TestCourses = Test.testCourse;
 
+
                 for (CourseList Course: TestCourses) {
                     text = text + Course.courseCode +": "+ Course.offeringSession+ '\n'+ "                 " +
                             Course.prerequisite  +'\n';
@@ -114,6 +113,13 @@ public class Student_View_Past_activity extends AppCompatActivity {
         deleteC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //Firebase删除数据
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference myRef = database.getReference("message");
+
+                myRef.removeValue();
+
                 //Intent intent = new Intent( Student_Operation.this,MainActivity.class);
                 //startActivity(intent);
                 //finish();
@@ -121,13 +127,11 @@ public class Student_View_Past_activity extends AppCompatActivity {
                 AutoCompleteTextView CCV = (AutoCompleteTextView) findViewById(R.id.add_Past_Choice);
                 String CC =  CCV.getText().toString();
 
-                //CC.trim();
                 //判断是否在已有的课程列表中
                 if (!Test.courseCodeList.contains(CC)){
                     Toast.makeText(Student_View_Past_activity.this, "The Course is not existing. Please re-enter.", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
 
 
                 for (CourseList C: TestCourses){

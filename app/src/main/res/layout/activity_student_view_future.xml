@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".Student_View_Future_activity">
 
+    <AutoCompleteTextView
+        android:id="@+id/add_future_Choice"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.202"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.829" />
+
     <TextView
         android:id="@+id/title_futurecourse"
         android:layout_width="wrap_content"
@@ -20,6 +31,17 @@
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/student_Add_Course"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="236dp"
+        android:text="Add Course"
+        app:layout_constraintBottom_toTopOf="@+id/student_Delete_Course"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/future_go_back"
@@ -39,21 +61,10 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:text="Delete Course"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/Generate_TimeLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.8" />
-
-    <Button
-        android:id="@+id/student_Add_Course"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
-        android:text="Add Course"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.8" />
+        app:layout_constraintVertical_bias="0.966" />
 
     <ScrollView
         android:id="@+id/FutureCourseListView"
@@ -80,5 +91,17 @@
                 android:textSize="20sp" />
         </LinearLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/Generate_TimeLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Generate Timeline"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.927"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.98" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
