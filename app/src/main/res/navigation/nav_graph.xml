@@ -19,20 +19,20 @@
         android:id="@+id/AdminFragment"
         android:name="com.example.myapplication.AdminFragment"
         android:label="AdminFragment"
-        tools:layout="@layout/fragment_second">
+        tools:layout="@layout/admin_fragment">
 
         <action
-            android:id="@+id/action_AdminManagement_to_AdminCreate"
+            android:id="@+id/action_AdminFragment_to_AdminCreate"
             app:destination="@id/AdminCreate" />
     </fragment>
     <fragment
         android:id="@+id/AdminCreate"
-        android:name="com.example.myapplication.AdminCreateCourse"
+        android:name="com.example.myapplication.AdminCreate"
         android:label="admin_add_new_course"
-        tools:layout="@layout/admin_add_new_course">
+        tools:layout="@layout/fragment_admin_create">
 
         <action
-            android:id="@+id/action_AdminCreate_to_SecondFragment"
-            app:destination="@id/AdminCreate"/>
+            android:id="@+id/action_AdminCreate_to_AdminFragment"
+            app:destination="@id/AdminFragment"/>
     </fragment>
 </navigation>

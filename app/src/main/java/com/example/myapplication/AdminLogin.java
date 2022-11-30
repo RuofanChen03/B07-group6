@@ -21,7 +21,7 @@ public class AdminLogin extends Fragment {
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-
+        System.out.println("In AdminLogin");
         binding = FragmentFirstBinding.inflate(inflater, container, false);
         return binding.getRoot();
 

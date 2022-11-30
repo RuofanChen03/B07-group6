@@ -9,7 +9,7 @@ public class Course {
     boolean[] sessions;
     List<Course> prerequisites;
 
-    static ArrayList<Course> courseList;
+    static ArrayList<Course> courseList = new ArrayList<Course>();
 
     //default course initializer
     public Course(){

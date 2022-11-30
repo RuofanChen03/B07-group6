@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AdminCreate">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="266dp"
+        android:layout_height="62dp"
+        android:text="Adding a new course"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.047" />
+
+    <Button
+        android:id="@+id/AdminHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Return to Admin Homepage"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.758" />
+
+    <EditText
+        android:id="@+id/CreateNameInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Enter the course name"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/AdminHome"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.482"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.294" />
+
+    <EditText
+        android:id="@+id/CreateCodeInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Enter the course code"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/AdminHome"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CreateNameInput"
+        app:layout_constraintVertical_bias="0.091" />
+
+    <Button
+        android:id="@+id/submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save New Course"
+        app:layout_constraintBottom_toTopOf="@+id/AdminHome"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CreateNameInput"
+        app:layout_constraintVertical_bias="0.916" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/WinterSessionChip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Winter"
+        android:checkable="true"
+        app:layout_constraintBottom_toTopOf="@+id/submit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toEndOf="@+id/FallSessionChip"
+        app:layout_constraintTop_toBottomOf="@+id/CreateCodeInput"
+        app:layout_constraintVertical_bias="0.192" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/SummerSessionChip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Summer"
+        android:checkable="true"
+        app:layout_constraintBottom_toTopOf="@+id/submit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.187"
+        app:layout_constraintStart_toEndOf="@+id/WinterSessionChip"
+        app:layout_constraintTop_toBottomOf="@+id/CreateCodeInput"
+        app:layout_constraintVertical_bias="0.192" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/FallSessionChip"
+        android:layout_width="50dp"
+        android:layout_height="48dp"
+        android:text="Fall"
+        android:checkable="true"
+        app:layout_constraintBottom_toTopOf="@+id/submit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.238"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CreateCodeInput"
+        app:layout_constraintVertical_bias="0.192" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,7 +13,6 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.myapplication.databinding.AdminFragmentBinding;
 import com.example.myapplication.databinding.FragmentFirstBinding;
-import com.example.myapplication.databinding.FragmentSecondBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +50,9 @@ public class AdminFragment extends Fragment{
                              LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState
     ){
-
+        System.out.println("DUMMY SIZE: "+dummy.size());
+        Course.courseList = dummy;
+        System.out.println("In AdminFragment");
         //render all the currently registered courses on screen
         binding = AdminFragmentBinding.inflate(inflater, container, false);
         for (int i = 0; i < dummy.size(); i++) {
@@ -65,6 +66,13 @@ public class AdminFragment extends Fragment{
             yourlayout.addView(btn);
              **/
         }
+        binding.AdminCreateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(AdminFragment.this)
+                        .navigate(R.id.action_AdminFragment_to_AdminCreate);
+            }
+        });
         return binding.getRoot();
     }
 
