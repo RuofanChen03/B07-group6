@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/AdminLogin"
         android:name="com.example.myapplication.AdminLogin"
-        android:label="@string/first_fragment_label"
+        android:label="Login as an Administrator"
         tools:layout="@layout/fragment_first">
 
         <action
@@ -18,21 +18,34 @@
     <fragment
         android:id="@+id/AdminFragment"
         android:name="com.example.myapplication.AdminFragment"
-        android:label="AdminFragment"
+        android:label="Actions as an Administrator"
         tools:layout="@layout/admin_fragment">
 
         <action
             android:id="@+id/action_AdminFragment_to_AdminCreate"
             app:destination="@id/AdminCreate" />
+        <action
+            android:id="@+id/action_AdminFragment_to_AdminEdit"
+            app:destination="@id/AdminEdit" />
     </fragment>
     <fragment
         android:id="@+id/AdminCreate"
         android:name="com.example.myapplication.AdminCreate"
-        android:label="admin_add_new_course"
+        android:label="Add a New Course"
         tools:layout="@layout/fragment_admin_create">
 
         <action
             android:id="@+id/action_AdminCreate_to_AdminFragment"
             app:destination="@id/AdminFragment"/>
+    </fragment>
+    <fragment
+        android:id="@+id/AdminEdit"
+        android:name="com.example.myapplication.AdminEdit"
+        android:label="Edit an Existing Course"
+        tools:layout="@layout/fragment_admin_edit">
+
+        <action
+            android:id="@+id/action_AdminEdit_to_AdminFragment"
+            app:destination="@id/AdminFragment" />
     </fragment>
 </navigation>

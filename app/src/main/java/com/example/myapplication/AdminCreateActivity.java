@@ -54,6 +54,7 @@ public class AdminCreateActivity extends AppCompatActivity {
         });
         */
 
+        /*
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,6 +64,7 @@ public class AdminCreateActivity extends AppCompatActivity {
 
             }
         });
+        */
     }
 
     public void storeSubmit(){

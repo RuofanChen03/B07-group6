@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.annotation.NonNull;
@@ -110,13 +111,23 @@ public class AdminCreate extends Fragment{
                 GetInput = getActivity().findViewById(R.id.CreateCodeInput);
                 code = GetInput.getText().toString();
 
-                Course createdCourse = new Course(name, code,  sessionsOffered, new ArrayList<Course>());
-                Course.courseList.add(createdCourse);
-                System.out.println("After call:"+Course.courseList.size());
-                System.out.println("courseList.get(3) (fall)"+Course.courseList.get(3).sessions[0]);
-                System.out.println("courseList.get(3) (winter)"+Course.courseList.get(3).sessions[1]);
-                System.out.println("courseList.get(3) (summer)"+Course.courseList.get(3).sessions[2]);
+                if(Course.doesCourseCodeExist(code)) {
+                    Toast.makeText(getActivity().getApplicationContext(),
+                            ("Code \""+code + "\" is already in use. Please try a different code."),
+                            Toast.LENGTH_SHORT).show();
+                }
+                else {
 
+                    Course createdCourse = new Course(name, code, sessionsOffered, new ArrayList<Course>());
+                    Course.courseList.add(createdCourse);
+                    System.out.println("Code of most recent course: " + Course.courseList.get(Course.courseList.size()-1).courseCode);
+                    System.out.println("courseList.get(3) (fall)" + Course.courseList.get(3).sessions[0]);
+                    System.out.println("courseList.get(3) (winter)" + Course.courseList.get(3).sessions[1]);
+                    System.out.println("courseList.get(3) (summer)" + Course.courseList.get(3).sessions[2]);
+                    Toast.makeText(getActivity().getApplicationContext(),
+                            ("Course \"" + code + "\" has been successfully created!"),
+                            Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

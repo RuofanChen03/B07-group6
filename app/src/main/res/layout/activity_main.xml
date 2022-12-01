@@ -20,15 +20,38 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_main" />
+    <include
+        android:id="@+id/include"
+        layout="@layout/content_main" />
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right">
+
+    </FrameLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
-        android:layout_width="wrap_content"
+        android:layout_width="99dp"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="@dimen/fab_margin"
         android:layout_marginBottom="16dp"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        android:src="@android:color/transparent"
+        app:layout_anchor="@+id/include"
+        app:layout_anchorGravity="end|bottom" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:elevation="16dp"
+        android:text="Log Out"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        app:layout_anchor="@+id/frameLayout"
+        app:layout_anchorGravity="end|top" />
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
