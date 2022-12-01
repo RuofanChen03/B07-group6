@@ -34,8 +34,8 @@ public class Student_View_Past_activity extends AppCompatActivity {
 
         //测试课程数据 view
         String text="";
-        TestData Test = new Student.TestData(1);
-        HashSet<CourseList> TestCourses = Test.testCourse;
+        //MainActivity.Student_Past_Courses = new Student.TestData(1);
+        HashSet<CourseList> TestCourses = MainActivity.Student_Past_Courses.testCourse;
 
         for (CourseList Course: TestCourses) {
             text = text + Course.courseCode +": "+ Course.offeringSession+ '\n'+ "                 " +
@@ -48,7 +48,7 @@ public class Student_View_Past_activity extends AppCompatActivity {
         PCL.setText(text);
 
         //测试数据导入
-        TestData ChoiceList = new Student.TestData();
+        TestData ChoiceList = MainActivity.AllCourses;
         //Creating the instance of ArrayAdapter containing list of names
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, ChoiceList.courseCodeList);
         //Getting the instance of AutoCompleteTextView
@@ -77,7 +77,7 @@ public class Student_View_Past_activity extends AppCompatActivity {
                     Toast.makeText(Student_View_Past_activity.this, "The Course is not available now. Please re-enter.", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (Test.courseCodeList.contains(CC)){
+                if (MainActivity.Student_Past_Courses.courseCodeList.contains(CC)){
                     Toast.makeText(Student_View_Past_activity.this, "The Course has existed. Please re-enter.", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -87,7 +87,7 @@ public class Student_View_Past_activity extends AppCompatActivity {
                     if (C.courseCode.equals(CC)){
                         //Toast.makeText(Student_View_Past_activity.this, C.courseCode, Toast.LENGTH_LONG).show();
                         TestCourses.add(C);
-                        Test.courseCodeList.add(CC);
+                        MainActivity.Student_Past_Courses.courseCodeList.add(CC);
                         //Toast.makeText(Student_View_Past_activity.this, C.courseCode, Toast.LENGTH_LONG).show();
                         break;
                     }
@@ -128,7 +128,7 @@ public class Student_View_Past_activity extends AppCompatActivity {
                 String CC =  CCV.getText().toString();
 
                 //判断是否在已有的课程列表中
-                if (!Test.courseCodeList.contains(CC)){
+                if (!MainActivity.Student_Past_Courses.courseCodeList.contains(CC)){
                     Toast.makeText(Student_View_Past_activity.this, "The Course is not existing. Please re-enter.", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -139,7 +139,7 @@ public class Student_View_Past_activity extends AppCompatActivity {
                     if (C.courseCode.equals(CC)){
                         //Toast.makeText(Student_View_Past_activity.this, C.courseCode, Toast.LENGTH_LONG).show();
                         TestCourses.remove(C);
-                        Test.courseCodeList.remove(CC);
+                        MainActivity.Student_Past_Courses.courseCodeList.remove(CC);
                         //Toast.makeText(Student_View_Past_activity.this, C.courseCode, Toast.LENGTH_LONG).show();
                         break;
                     }

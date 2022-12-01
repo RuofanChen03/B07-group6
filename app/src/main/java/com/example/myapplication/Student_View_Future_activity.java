@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -25,8 +26,8 @@ public class Student_View_Future_activity extends AppCompatActivity {
 
         //测试课程数据 view
         String text="";
-        TestData ExistedFCL = new Student.TestData("a"); //create the existed future course list
-        HashSet<CourseList> TestCourses = ExistedFCL.testCourse;
+        //MainActivity.Student_Future_Courses = new Student.TestData("a"); //create the existed future course list
+        HashSet<CourseList> TestCourses = MainActivity.Student_Future_Courses.testCourse;
 
         for (CourseList Course: TestCourses) {
             text = text + Course.courseCode +": "+ Course.offeringSession+ '\n'+ "                 " +
@@ -64,19 +65,23 @@ public class Student_View_Future_activity extends AppCompatActivity {
                     Toast.makeText(Student_View_Future_activity.this, "The Course is not available now. Please re-enter.", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (ExistedFCL.courseCodeList.contains(CC)){
+                if (MainActivity.Student_Future_Courses.courseCodeList.contains(CC)){
                     Toast.makeText(Student_View_Future_activity.this, "The Course has existed. Please re-enter.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 //再加一个判断是否在已经上过的past course里 如果上过的话不能再添加
+                if(MainActivity.Student_Past_Courses.courseCodeList.contains(CC)){
+                    Toast.makeText(Student_View_Future_activity.this, "The Course has been taken. Please re-enter.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 for (CourseList C: ChoiceList.testCourse){
                     //Toast.makeText(Student_View_Past_activity.this, C.courseCode+"\n"+CC, Toast.LENGTH_LONG).show();
                     if (C.courseCode.equals(CC)){
                         //Toast.makeText(Student_View_Past_activity.this, C.courseCode, Toast.LENGTH_LONG).show();
                         TestCourses.add(C);
-                        ExistedFCL.courseCodeList.add(CC);
+                        MainActivity.Student_Future_Courses.courseCodeList.add(CC);
                         //Toast.makeText(Student_View_Past_activity.this, C.courseCode, Toast.LENGTH_LONG).show();
                         break;
                     }
@@ -110,7 +115,7 @@ public class Student_View_Future_activity extends AppCompatActivity {
 
                 //CC.trim();
                 //判断是否在已有的课程列表中
-                if (!ExistedFCL.courseCodeList.contains(CC)){
+                if (!MainActivity.Student_Future_Courses.courseCodeList.contains(CC)){
                     Toast.makeText(Student_View_Future_activity.this, "The Course is not existing. Please re-enter.", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -122,7 +127,7 @@ public class Student_View_Future_activity extends AppCompatActivity {
                     if (C.courseCode.equals(CC)){
                         //Toast.makeText(Student_View_Past_activity.this, C.courseCode, Toast.LENGTH_LONG).show();
                         TestCourses.remove(C);
-                        ExistedFCL.courseCodeList.remove(CC);
+                        MainActivity.Student_Future_Courses.courseCodeList.remove(CC);
                         //Toast.makeText(Student_View_Past_activity.this, C.courseCode, Toast.LENGTH_LONG).show();
                         break;
                     }
@@ -144,6 +149,17 @@ public class Student_View_Future_activity extends AppCompatActivity {
 
         });
 
+
+        Button generate_timeline = (Button) findViewById(R.id.Generate_TimeLine);
+        generate_timeline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent( Student_View_Future_activity.this,Student_Generate_Timeline.class);
+                startActivity(intent);
+                //finish();
+            }
+
+        });
 
         Button go_back = (Button) findViewById(R.id.future_go_back);
         go_back.setOnClickListener(new View.OnClickListener() {

@@ -8,12 +8,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import Student.TestData;
+
 public class Student_Operation extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_operation);
+
+
 
         Button go_back = (Button) findViewById(R.id.Go_Back);
         go_back.setOnClickListener(new View.OnClickListener() {
@@ -47,6 +51,8 @@ public class Student_Operation extends AppCompatActivity {
             }
 
         });
+        MainActivity.AllCourses = new TestData();
+        //MainActivity.AllCourses=  test.testCourse;
     }
 
 

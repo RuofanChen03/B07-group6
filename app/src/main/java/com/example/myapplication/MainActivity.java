@@ -18,14 +18,29 @@ import com.example.myapplication.databinding.ActivityMainBinding;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.HashSet;
+
+import Student.CourseList;
+import Student.TestData;
+
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
 
+    public static TestData AllCourses;
+    public static TestData Student_Past_Courses;
+    public static TestData Student_Future_Courses;
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        MainActivity.Student_Future_Courses = new Student.TestData("a");
+        MainActivity.Student_Past_Courses = new Student.TestData(1);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
