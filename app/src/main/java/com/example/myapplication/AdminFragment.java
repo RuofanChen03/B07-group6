@@ -80,6 +80,14 @@ public class AdminFragment extends Fragment{
                         .navigate(R.id.action_AdminFragment_to_AdminEdit);
             }
         });
+
+        binding.AdminViewButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                NavHostFragment.findNavController(AdminFragment.this)
+                        .navigate(R.id.action_AdminFragment_to_adminViewFragment);
+            }
+        });
         return binding.getRoot();
     }
 

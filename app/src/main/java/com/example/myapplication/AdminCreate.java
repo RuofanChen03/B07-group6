@@ -120,10 +120,12 @@ public class AdminCreate extends Fragment{
 
                     Course createdCourse = new Course(name, code, sessionsOffered, new ArrayList<Course>());
                     Course.courseList.add(createdCourse);
+                    /**
                     System.out.println("Code of most recent course: " + Course.courseList.get(Course.courseList.size()-1).courseCode);
                     System.out.println("courseList.get(3) (fall)" + Course.courseList.get(3).sessions[0]);
                     System.out.println("courseList.get(3) (winter)" + Course.courseList.get(3).sessions[1]);
                     System.out.println("courseList.get(3) (summer)" + Course.courseList.get(3).sessions[2]);
+                     **/
                     Toast.makeText(getActivity().getApplicationContext(),
                             ("Course \"" + code + "\" has been successfully created!"),
                             Toast.LENGTH_SHORT).show();
