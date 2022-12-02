@@ -1,11 +1,14 @@
-package com.example.myapplication;
+package project_student;
+
 
 public class PastCourse extends Operation {
-    public void addCourse(CourseList course) {
-        newList.add(course);
-    }
+	
+	public void addCourse(CourseList course) {
+		newList.add(course);
+	}
+	
+	public void deleteCourse(CourseList course) {
+		newList.remove(course);
+	}
 
-    public void deleteCourse(CourseList course) {
-        newList.remove(course);
-    }
 }
