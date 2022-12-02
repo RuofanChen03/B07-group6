@@ -16,19 +16,17 @@ import org.mockito.Mockito;
 
 public class LoginUnitTest {
     LoginModel mockLoginModel;
-    LoginFragment mockLoginFragment;
     @Test
     public void login_null_student_account_test() {
         // Creating a null user
         User input = null;
         // Creating a mock object for LoginModel
         mockLoginModel = Mockito.mock(LoginModel.class);
-        mockLoginFragment = Mockito.mock(LoginFragment.class);
         when(mockLoginModel.studentInDatabase(input)).thenReturn(false);
         // Testing the instantiation
         LoginPresenter test = new LoginPresenter(mockLoginModel);
         // Checking if the login attempt is successful
-        assertEquals(test.loginAttempt(input, false, mockLoginFragment),
+        assertEquals(test.loginAttempt(input, false),
                 "Error! Unexpected Null User!");
     }
     @Test
@@ -41,7 +39,7 @@ public class LoginUnitTest {
         // Testing the instantiation
         LoginPresenter test = new LoginPresenter(mockLoginModel);
         // Checking if the login attempt is successful
-        assertEquals(test.loginAttempt(input, true, mockLoginFragment),
+        assertEquals(test.loginAttempt(input, true),
                 "Error! Unexpected Null User!");
     }
     @Test
@@ -57,7 +55,7 @@ public class LoginUnitTest {
         LoginPresenter test = new LoginPresenter(mockLoginModel);
 
         // Checking if the login attempt is successful
-        assertEquals(test.loginAttempt(input, false, mockLoginFragment),
+        assertEquals(test.loginAttempt(input, false),
                 "Wrong username or password!");
     }
     @Test
@@ -73,7 +71,7 @@ public class LoginUnitTest {
         LoginPresenter test = new LoginPresenter(mockLoginModel);
 
         // Checking if the login attempt is successful
-        assertEquals(test.loginAttempt(input, true, mockLoginFragment),
+        assertEquals(test.loginAttempt(input, true),
                 "Wrong username or password!");
     }
     @Test
@@ -88,7 +86,7 @@ public class LoginUnitTest {
         LoginPresenter test = new LoginPresenter(mockLoginModel);
 
         // Checking if the login attempt is successful
-        assertEquals(test.loginAttempt(input, false, mockLoginFragment),
+        assertEquals(test.loginAttempt(input, false),
                 "Wrong username or password!");
     }
     @Test
@@ -103,7 +101,7 @@ public class LoginUnitTest {
         LoginPresenter test = new LoginPresenter(mockLoginModel);
 
         // Checking if the login attempt is successful
-        assertEquals(test.loginAttempt(input, true, mockLoginFragment),
+        assertEquals(test.loginAttempt(input, true),
                 "Wrong username or password!");
     }
     @Test
@@ -118,8 +116,8 @@ public class LoginUnitTest {
         LoginPresenter test = new LoginPresenter(mockLoginModel);
 
         // Checking if the login attempt is successful
-        assertEquals(test.loginAttempt(input, false, mockLoginFragment),
-                "Login successful!");
+        assertEquals(test.loginAttempt(input, false),
+                "Student login successful!");
     }
     @Test
     public void login_existent_admin_account_test() {
@@ -133,8 +131,8 @@ public class LoginUnitTest {
         LoginPresenter test = new LoginPresenter(mockLoginModel);
 
         // Checking if the login attempt is successful
-        assertEquals(test.loginAttempt(input, true, mockLoginFragment),
-                "Login successful!");
+        assertEquals(test.loginAttempt(input, true),
+                "Admin login successful!");
     }
 
 

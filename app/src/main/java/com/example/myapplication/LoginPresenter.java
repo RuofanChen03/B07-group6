@@ -1,8 +1,5 @@
 package com.example.myapplication;
 
-import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
-
 /**
  * This is the login presenter class, according to the MVP model.
  * It helps both the Login and Sign Up sections of the application.
@@ -14,38 +11,21 @@ public class LoginPresenter {
         this.loginModel = loginModel;
     }
 
-    public void navigateToSignUp(Fragment frag){
-        NavHostFragment.findNavController(frag)
-                .navigate(R.id.action_FirstFragment_to_SecondFragment);
-    }
-
-    public void navigateToLogin(Fragment frag){
-        NavHostFragment.findNavController(frag)
-                .navigate(R.id.action_SecondFragment_to_FirstFragment);
-    }
-
-    public void navigateToAdmin(Fragment frag){
-        NavHostFragment.findNavController(frag)
-                .navigate(R.id.action_LoginFragment_to_AdminFragment);
-    }
-
-    public String loginAttempt(User input, boolean isCheckedAdminSwitch, Fragment frag){
+    public String loginAttempt(User input, boolean isCheckedAdminSwitch){
         String message;
         if (input == null)
             message = "Error! Unexpected Null User!";
         else{
             if (isCheckedAdminSwitch){
                 if(loginModel.adminInDatabase(input)){
-                    this.navigateToAdmin(frag);
-                    message = "Login successful!";
+                    message = "Admin login successful!";
                 }
                 else
                     message = "Wrong username or password!";
             }
             else {
                 if(loginModel.studentInDatabase(input)){
-                    //NAVIGATION 2
-                    message = "Login successful!";
+                    message = "Student login successful!";
                 }
                 else
                     message = "Wrong username or password!";

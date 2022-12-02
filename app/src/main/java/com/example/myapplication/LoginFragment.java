@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,11 +11,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.myapplication.databinding.FragmentLoginBinding;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginFragment extends Fragment {
 
@@ -48,11 +47,17 @@ public class LoginFragment extends Fragment {
                 Switch adminSwitch = requireActivity().findViewById(R.id.switch_admin);
 
                 User input = new User(usernameValue, passwordValue);
+                String s = loginPresenter.loginAttempt(input, adminSwitch.isChecked());
 
-                Toast.makeText(getActivity(),
-                        loginPresenter.loginAttempt(
-                                input, adminSwitch.isChecked(), LoginFragment.this),
-                        Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), s, Toast.LENGTH_LONG).show();
+                if (s.equals("Admin login successful!")){
+                    NavHostFragment.findNavController(LoginFragment.this)
+                            .navigate(R.id.action_LoginFragment_to_AdminFragment);
+                }
+                if (s.equals("Student login successful!")){
+                    Intent intent = new Intent(requireActivity(), Student_Operation.class);
+                    startActivity(intent);
+                }
 
             }
         });
@@ -60,7 +65,8 @@ public class LoginFragment extends Fragment {
         binding.signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loginPresenter.navigateToSignUp(LoginFragment.this);
+                NavHostFragment.findNavController(LoginFragment.this).
+                        navigate(R.id.action_FirstFragment_to_SecondFragment);
             }
         });
     }

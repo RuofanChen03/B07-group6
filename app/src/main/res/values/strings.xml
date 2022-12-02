@@ -26,4 +26,19 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+
+
+    <!-- Strings used for fragments for navigation -->
+    <string name="future_course">Future Course</string>
+    <string name="add_course">Add Course</string>
+    <string name="go_back">Go Back</string>
+    <string name="delete_course">Delete Course</string>
+    <string name="future_course_list">Future Course List</string>
+    <string name="generate_timeline">Generate Timeline</string>
+    <string name="view_past_course">View Past Course</string>
+    <string name="view_desired_course">View Desired Course</string>
+    <string name="past_course_list">Past Course List</string>
+    <string name="past_course">Past Course</string>
 </resources>

@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.myapplication.databinding.FragmentSignUpBinding;
 
@@ -54,7 +55,8 @@ public class SignUpFragment extends Fragment {
         binding.backButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick (View view) {
-                loginPresenter.navigateToLogin(SignUpFragment.this);
+                NavHostFragment.findNavController(SignUpFragment.this)
+                        .navigate(R.id.action_SecondFragment_to_FirstFragment);
             }
         });
     }
