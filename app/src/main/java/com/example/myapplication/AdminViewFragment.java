@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +8,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,12 +60,58 @@ public class AdminViewFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
+    }
+
+    void removeCourse(ArrayList<Course> courses, Course course, LinearLayout ll)
+    {
+        courses.remove(course);
+        renderCourses(Course.courseList, ll);
+    }
+    void addCourse(ArrayList<Course> courses, Course course, LinearLayout ll)
+    {
+        courses.add(course);
+        renderCourses(Course.courseList, ll);
+    }
+
+    void renderCourses(ArrayList<Course> courses, LinearLayout ll) {
+
+        ll.removeAllViews();
+        for (int i = 0; i < courses.size(); i++) {
+            Button b = new Button(getActivity());
+            Course c = courses.get(i);
+
+            b.setText(c.courseCode);
+            b.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+            b.setId(i);
+
+            b.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getActivity().getBaseContext(), b.getText(), Toast.LENGTH_SHORT).show();
+                    if (ll != null){
+                        removeCourse(courses, c, ll);
+                    }
+
+                }
+
+            });
+
+            ll.addView(b);
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_admin_view, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_admin_view, container, false);
+        //test.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+        //test.setId(2);
+
+        LinearLayout ll = (LinearLayout) rootView.findViewById(R.id.linearlayout);
+        renderCourses(Course.courseList, ll);
+        return rootView;
     }
 }
