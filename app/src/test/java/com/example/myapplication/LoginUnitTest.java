@@ -1,20 +1,12 @@
 package com.example.myapplication;
 
-import android.content.Context;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
-import androidx.navigation.fragment.NavHostFragment;
-
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-
 import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
 
-
-//import static org.mockito.Mockito.when;
 
 /**
  * Login module local unit test, which will execute on the development machine (host).
@@ -25,19 +17,18 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class LoginUnitTest {
     LoginModel mockLoginModel;
     LoginFragment mockLoginFragment;
-    SignUpFragment mockSignUpFragment;
-    NavHostFragment mockNavHostFragment;
     @Test
     public void login_null_student_account_test() {
         // Creating a null user
         User input = null;
         // Creating a mock object for LoginModel
         mockLoginModel = Mockito.mock(LoginModel.class);
+        mockLoginFragment = Mockito.mock(LoginFragment.class);
         when(mockLoginModel.studentInDatabase(input)).thenReturn(false);
         // Testing the instantiation
         LoginPresenter test = new LoginPresenter(mockLoginModel);
         // Checking if the login attempt is successful
-        assertEquals(test.loginAttempt(input, false),
+        assertEquals(test.loginAttempt(input, false, mockLoginFragment),
                 "Error! Unexpected Null User!");
     }
     @Test
@@ -50,7 +41,7 @@ public class LoginUnitTest {
         // Testing the instantiation
         LoginPresenter test = new LoginPresenter(mockLoginModel);
         // Checking if the login attempt is successful
-        assertEquals(test.loginAttempt(input, true),
+        assertEquals(test.loginAttempt(input, true, mockLoginFragment),
                 "Error! Unexpected Null User!");
     }
     @Test
@@ -66,7 +57,7 @@ public class LoginUnitTest {
         LoginPresenter test = new LoginPresenter(mockLoginModel);
 
         // Checking if the login attempt is successful
-        assertEquals(test.loginAttempt(input, false),
+        assertEquals(test.loginAttempt(input, false, mockLoginFragment),
                 "Wrong username or password!");
     }
     @Test
@@ -82,7 +73,7 @@ public class LoginUnitTest {
         LoginPresenter test = new LoginPresenter(mockLoginModel);
 
         // Checking if the login attempt is successful
-        assertEquals(test.loginAttempt(input, true),
+        assertEquals(test.loginAttempt(input, true, mockLoginFragment),
                 "Wrong username or password!");
     }
     @Test
@@ -97,7 +88,7 @@ public class LoginUnitTest {
         LoginPresenter test = new LoginPresenter(mockLoginModel);
 
         // Checking if the login attempt is successful
-        assertEquals(test.loginAttempt(input, false),
+        assertEquals(test.loginAttempt(input, false, mockLoginFragment),
                 "Wrong username or password!");
     }
     @Test
@@ -112,7 +103,7 @@ public class LoginUnitTest {
         LoginPresenter test = new LoginPresenter(mockLoginModel);
 
         // Checking if the login attempt is successful
-        assertEquals(test.loginAttempt(input, true),
+        assertEquals(test.loginAttempt(input, true, mockLoginFragment),
                 "Wrong username or password!");
     }
     @Test
@@ -127,22 +118,9 @@ public class LoginUnitTest {
         LoginPresenter test = new LoginPresenter(mockLoginModel);
 
         // Checking if the login attempt is successful
-        assertEquals(test.loginAttempt(input, false),
+        assertEquals(test.loginAttempt(input, false, mockLoginFragment),
                 "Login successful!");
     }
-    @Test
-    public void navigation_login_to_sign_up() {
-        // Creating mock object for LoginFragment
-        mockLoginFragment = Mockito.mock(LoginFragment.class);
-        when(mockLoginFragment.isVisible()).thenReturn(false);
-        // Testing the instantiation
-        LoginPresenter test = new LoginPresenter(mockLoginModel);
-
-        test.navigateToSignUp(mockLoginFragment);
-        // Checking if the login attempt is successful
-        assertFalse(mockLoginFragment.isVisible());
-    }
-
     @Test
     public void login_existent_admin_account_test() {
         // Creating a random admin user that is definitely not in the data
@@ -155,7 +133,118 @@ public class LoginUnitTest {
         LoginPresenter test = new LoginPresenter(mockLoginModel);
 
         // Checking if the login attempt is successful
-        assertEquals(test.loginAttempt(input, true),
+        assertEquals(test.loginAttempt(input, true, mockLoginFragment),
                 "Login successful!");
+    }
+
+
+    @Test
+    public void sign_up_null_user_test() {
+        // Creating a null user
+        User input = null;
+        // Creating a mock object for LoginModel
+        mockLoginModel = Mockito.mock(LoginModel.class);
+        when(mockLoginModel.usernameInStudentDatabase(input)).thenReturn(false);
+        // Testing the instantiation
+        LoginPresenter test = new LoginPresenter(mockLoginModel);
+        // Checking if the sign up attempt is successful
+        assertEquals(test.signUpAttempt(input, ""),
+                "Error! Unexpected Null User!");
+    }
+    @Test
+    public void sign_up_username_and_password_empty_test() {
+        // Creating a student user that has empty strings as username & password
+        // this would not be a valid user
+        User input = new User("", "");
+
+        // Creating a mock object for LoginModel
+        mockLoginModel= Mockito.mock(LoginModel.class);
+        when(mockLoginModel.usernameInStudentDatabase(input)).thenReturn(false);
+        // Testing the instantiation
+        LoginPresenter test = new LoginPresenter(mockLoginModel);
+
+        // Checking if the sign in attempt is successful
+        assertEquals(test.signUpAttempt(input, ""),
+                "Cannot enter empty username or password!");
+    }
+    @Test
+    public void sign_up_username_empty_test() {
+        // Creating a student user that has empty strings as username & password
+        // this would not be a valid user
+        User input = new User("", "password");
+
+        // Creating a mock object for LoginModel
+        mockLoginModel= Mockito.mock(LoginModel.class);
+        when(mockLoginModel.usernameInStudentDatabase(input)).thenReturn(false);
+        // Testing the instantiation
+        LoginPresenter test = new LoginPresenter(mockLoginModel);
+
+        // Checking if the sign in attempt is successful
+        assertEquals(test.signUpAttempt(input, "password"),
+                "Cannot enter empty username or password!");
+    }
+    @Test
+    public void sign_up_password_empty_test() {
+        // Creating a student user that has empty strings as username & password
+        // this would not be a valid user
+        User input = new User("admin1", "");
+
+        // Creating a mock object for LoginModel
+        mockLoginModel= Mockito.mock(LoginModel.class);
+        when(mockLoginModel.usernameInStudentDatabase(input)).thenReturn(false);
+        // Testing the instantiation
+        LoginPresenter test = new LoginPresenter(mockLoginModel);
+
+        // Checking if the sign in attempt is successful
+        assertEquals(test.signUpAttempt(input, "password"),
+                "Cannot enter empty username or password!");
+    }
+    @Test
+    public void sign_up_inconsistent_passwords_test() {
+        // Creating a student user that has empty strings as username & password
+        // this would not be a valid user
+        User input = new User("admin1", "password");
+
+        // Creating a mock object for LoginModel
+        mockLoginModel= Mockito.mock(LoginModel.class);
+        when(mockLoginModel.usernameInStudentDatabase(input)).thenReturn(false);
+        // Testing the instantiation
+        LoginPresenter test = new LoginPresenter(mockLoginModel);
+
+        // Checking if the sign in attempt is successful
+        assertEquals(test.signUpAttempt(input, "password1"),
+                "Inconsistency of entered password!");
+    }
+    @Test
+    public void sign_up_existent_username_test() {
+        // Creating a student user that has empty strings as username & password
+        // this would not be a valid user
+        User input = new User("admin1", "password");
+
+        // Creating a mock object for LoginModel
+        mockLoginModel= Mockito.mock(LoginModel.class);
+        when(mockLoginModel.usernameInStudentDatabase(input)).thenReturn(true);
+        // Testing the instantiation
+        LoginPresenter test = new LoginPresenter(mockLoginModel);
+
+        // Checking if the sign in attempt is successful
+        assertEquals(test.signUpAttempt(input, "password"),
+                "Used username! Please choose another one!");
+    }
+    @Test
+    public void sign_up_nonexistent_username_test() {
+        // Creating a student user that has empty strings as username & password
+        // this would not be a valid user
+        User input = new User("admin1", "password");
+
+        // Creating a mock object for LoginModel
+        mockLoginModel= Mockito.mock(LoginModel.class);
+        when(mockLoginModel.usernameInStudentDatabase(input)).thenReturn(false);
+        // Testing the instantiation
+        LoginPresenter test = new LoginPresenter(mockLoginModel);
+
+        // Checking if the sign in attempt is successful
+        assertEquals(test.signUpAttempt(input, "password"),
+                "Successfully signed up!!!");
     }
 }

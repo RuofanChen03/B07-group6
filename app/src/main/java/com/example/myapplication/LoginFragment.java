@@ -18,14 +18,6 @@ public class LoginFragment extends Fragment {
     private FragmentLoginBinding binding;
     private LoginPresenter loginPresenter;
     private LoginModel loginModel;
-//    protected static DatabaseReference ref1 = FirebaseDatabase.
-//            getInstance("https://b07project-943e2-default-rtdb.firebaseio.com/").
-//            getReference("students");
-//    protected static DatabaseReference ref2 = FirebaseDatabase.
-//            getInstance("https://b07project-943e2-default-rtdb.firebaseio.com/").
-//            getReference("admins");
-//    protected static HashSet<User> students = new HashSet<User>();
-//    protected static HashSet<User> admins = new HashSet<User>();
 
     @Override
     public View onCreateView(
@@ -36,47 +28,6 @@ public class LoginFragment extends Fragment {
         binding = FragmentLoginBinding.inflate(inflater, container, false);
         loginModel = new LoginModel();
         loginPresenter = new LoginPresenter(loginModel);
-
-//
-//        //Reading from a realtime database using a persistent listener
-//        ref1.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                try{
-//                    Log.i("student user database", "data changed");
-//                    for (DataSnapshot child : dataSnapshot.getChildren()) {
-//                    User user = child.getValue(User.class);
-//                        students.add(user);
-//                        Log.i("student ", user.toString());
-//                    }
-//                }
-//                catch(Exception e){}
-//            }
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                Log.w("warning", "loadPost:onCancelled",
-//                        databaseError.toException());
-//            }
-//        });
-//        ref2.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                Log.i("admin user database", "data changed");
-//                for (DataSnapshot child : dataSnapshot.getChildren()) {
-//                    User user = child.getValue(User.class);
-//                    admins.add(user);
-//                    Log.i("admin ", user.toString());
-//                }
-//            }
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                Log.w("warning", "loadPost:onCancelled",
-//                        databaseError.toException());
-//            }
-//        });
-//
-//
-
 
         return binding.getRoot();
     }
@@ -95,36 +46,11 @@ public class LoginFragment extends Fragment {
 
                 User input = new User(usernameValue, passwordValue);
 
-
                 Toast.makeText(getActivity(),
-                        loginPresenter.loginAttempt(input, adminSwitch.isChecked()),
+                        loginPresenter.loginAttempt(
+                                input, adminSwitch.isChecked(), LoginFragment.this),
                         Toast.LENGTH_LONG).show();
 
-//                if (adminSwitch.isChecked()){
-//                    for(User storedAdmin: admins){
-//                        if (storedAdmin.equals(input)){
-//
-//                            ok = true;
-//                            ref1 = null;
-//                            ref2 = null;
-//                            students = null;
-//                            admins = null;
-//
-////                        NavHostFragment.findNavController(FirstFragment.this)
-////                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
-//                        }
-//                    }
-//                }
-//                else {
-//                    for (User storedStu : students) {
-//                        if (storedStu.equals(input)) {
-//                            Toast.makeText(getActivity(), "Navigation!",
-//                                    Toast.LENGTH_LONG).show();
-////                        NavHostFragment.findNavController(FirstFragment.this)
-////                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
-//                        }
-//                    }
-//                }
             }
         });
 

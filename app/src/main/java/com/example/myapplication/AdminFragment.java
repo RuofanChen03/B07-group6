@@ -4,18 +4,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.myapplication.databinding.AdminFragmentBinding;
-import com.example.myapplication.databinding.FragmentFirstBinding;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class AdminFragment extends Fragment{
     ////////////////////////////////
@@ -47,8 +42,8 @@ public class AdminFragment extends Fragment{
     //LinearLayout mylayout = (LinearLayout) findViewById(R.id.admin_fragment.xml);
     @Override
     public View onCreateView(
-                             LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState
+            LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState
     ){
         System.out.println("DUMMY SIZE: "+dummy.size());
         Course.courseList = dummy;
@@ -59,11 +54,11 @@ public class AdminFragment extends Fragment{
             //i got this off a quora answer, doesnt work but the idea is there
             //oncreateview() is called when this frame is "opened" by the user
             /**
-            Button btn = new Button (AdminFragment.context);
-            btn.setWidth(40);
-            btn.setHeight(20);
-            btn.setText(arrylist.get(i).gettext());
-            yourlayout.addView(btn);
+             Button btn = new Button (AdminFragment.context);
+             btn.setWidth(40);
+             btn.setHeight(20);
+             btn.setText(arrylist.get(i).gettext());
+             yourlayout.addView(btn);
              **/
         }
         binding.AdminCreateButton.setOnClickListener(new View.OnClickListener() {
@@ -78,14 +73,6 @@ public class AdminFragment extends Fragment{
             public void onClick(View view){
                 NavHostFragment.findNavController(AdminFragment.this)
                         .navigate(R.id.action_AdminFragment_to_AdminEdit);
-            }
-        });
-
-        binding.AdminViewButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                NavHostFragment.findNavController(AdminFragment.this)
-                        .navigate(R.id.action_AdminFragment_to_adminViewFragment);
             }
         });
         return binding.getRoot();

@@ -24,24 +24,23 @@ public class LoginPresenter {
                 .navigate(R.id.action_SecondFragment_to_FirstFragment);
     }
 
-    public String loginAttempt(User input, boolean isCheckedAdminSwitch){
+    public void navigateToAdmin(Fragment frag){
+        NavHostFragment.findNavController(frag)
+                .navigate(R.id.action_LoginFragment_to_AdminFragment);
+    }
+
+    public String loginAttempt(User input, boolean isCheckedAdminSwitch, Fragment frag){
         String message;
         if (input == null)
             message = "Error! Unexpected Null User!";
         else{
             if (isCheckedAdminSwitch){
                 if(loginModel.adminInDatabase(input)){
-                    //NAVIGATION
+                    this.navigateToAdmin(frag);
                     message = "Login successful!";
                 }
                 else
                     message = "Wrong username or password!";
-
-//            for(User storedAdmin: loginModel.admins){
-//                if (storedAdmin.equals(input)){
-//                    return true;
-//                }
-//            }
             }
             else {
                 if(loginModel.studentInDatabase(input)){
@@ -50,12 +49,6 @@ public class LoginPresenter {
                 }
                 else
                     message = "Wrong username or password!";
-
-//            for (User storedStu : loginModel.students) {
-//                if (storedStu.equals(input)) {
-//                    return true;
-//                }
-//            }
             }
         }
         return message;
@@ -84,16 +77,6 @@ public class LoginPresenter {
                     message = "Successfully signed up!!!";
                     loginModel.addStudentToDatabase(input);
                 }
-
-//
-//            for (User storedStudent : loginModel.students) {
-//                if (User.equalUsername(storedStudent, input)) {
-//                    message = "Used username! Please choose another one!";
-//                    return message; // returned early to short circuit
-//                }
-//            }
-//
-//            message = "Successfully signed up!!!";
             }
         }
         return message;
