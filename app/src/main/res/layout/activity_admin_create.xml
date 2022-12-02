@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".AdminCreateActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -20,38 +20,22 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include
-        android:id="@+id/include"
-        layout="@layout/content_main" />
-
-    <FrameLayout
-        android:id="@+id/frameLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right">
-
-    </FrameLayout>
+    <include layout="@layout/fragment_admin_create" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
-        android:layout_width="99dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="@dimen/fab_margin"
         android:layout_marginBottom="16dp"
-        android:src="@android:color/transparent"
-        app:layout_anchor="@+id/include"
-        app:layout_anchorGravity="end|bottom" />
+        app:srcCompat="@android:drawable/ic_dialog_email" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:elevation="16dp"
-        android:text="Log Out"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        app:layout_anchor="@+id/frameLayout"
-        app:layout_anchorGravity="end|top" />
-
+    <androidx.fragment.app.FragmentContainerView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/AdminCreate"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="com.example.myapplication.AdminCreate" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
