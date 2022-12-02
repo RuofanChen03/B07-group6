@@ -2,13 +2,20 @@
     <string name="app_name">My Application</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <string name="login_fragment_label">Login Fragment</string>
+    <string name="sign_up_fragment_label">Sign Up Fragment</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sign_up_title">Sign up Page</string>
+
+    <string name="back_button">Back</string>
+    <string name="admin_switch">Admin?</string>
+    <string name="login_title">Login Page</string>
+    <string name="login_button">Login</string>
+    <string name="sign_up_button">Sign up</string>
+    <string name="sign_up_now_button">Sign up now!</string>
+    <string name="sign_up_message">Sign up today and use the app!</string>
+
+    <string name="username">Username:</string>
+    <string name="password">Password:</string>
+    <string name="confirm">Confirm password:</string>
 </resources>
