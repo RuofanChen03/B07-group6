@@ -30,6 +30,7 @@
             app:destination="@id/LoginFragment" />
     </fragment>
 
+
     <fragment
         android:id="@+id/AdminFragment"
         android:name="com.example.myapplication.AdminFragment"
@@ -42,6 +43,9 @@
         <action
             android:id="@+id/action_AdminFragment_to_AdminEdit"
             app:destination="@id/AdminEdit" />
+        <action
+            android:id="@+id/action_AdminFragment_to_adminViewFragment"
+            app:destination="@id/AdminViewFragment" />
     </fragment>
     <fragment
         android:id="@+id/AdminCreate"
@@ -63,4 +67,9 @@
             android:id="@+id/action_AdminEdit_to_AdminFragment"
             app:destination="@id/AdminFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/AdminViewFragment"
+        android:name="com.example.myapplication.AdminViewFragment"
+        android:label="fragment_admin_view"
+        tools:layout="@layout/fragment_admin_view" />
 </navigation>

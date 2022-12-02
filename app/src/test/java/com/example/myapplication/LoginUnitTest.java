@@ -13,7 +13,7 @@ import org.mockito.Mockito;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-//@RunWith(MockitoJUnitRunner.class)
+
 public class LoginUnitTest {
     LoginModel mockLoginModel;
     LoginFragment mockLoginFragment;

@@ -45,27 +45,9 @@ public class SignUpFragment extends Fragment {
                 String confirmedValue = confirmedEditText.getText().toString();
 
                 User input = new User(usernameValue, passwordValue);
-//                int signUpState = loginPresenter.signUpAttempt(input, confirmedValue);
 
                 Toast.makeText(getActivity(), loginPresenter.signUpAttempt(input, confirmedValue),
                         Toast.LENGTH_LONG).show();
-
-//                if(signUpState == 0){
-//                    Toast.makeText(getActivity(), "Cannot enter empty username or password!",
-//                            Toast.LENGTH_LONG).show();
-//                }
-//                else if (signUpState == 1){
-//                    Toast.makeText(getActivity(), "Inconsistency of entered password!",
-//                            Toast.LENGTH_LONG).show();
-//                }
-//                else if (signUpState == 2){
-//                    Toast.makeText(getActivity(), "Used username! Please choose another one!",
-//                            Toast.LENGTH_LONG).show();
-//                }
-//                else{
-//                    Toast.makeText(getActivity(), "Successfully signed up!!!",
-//                            Toast.LENGTH_LONG).show();
-//                }
             }
         });
 
