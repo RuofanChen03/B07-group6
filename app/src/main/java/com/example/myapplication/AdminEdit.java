@@ -23,6 +23,7 @@ import com.example.myapplication.databinding.FragmentAdminEditBinding;
 import com.example.myapplication.databinding.AdminFragmentBinding;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class AdminEdit extends Fragment {
 
@@ -133,12 +134,18 @@ public class AdminEdit extends Fragment {
                     name = GetInput.getText().toString();
                     GetInput = getActivity().findViewById(R.id.EditCodeInput);
                     code = GetInput.getText().toString();
-                    Course updatedCourse = new Course(name, code, sessionsOffered, new ArrayList<Course>());
+                    String strSessionsOffered = "";
+                    for(boolean offered : sessionsOffered){
+                        if(offered==false)strSessionsOffered+=0;
+                        else strSessionsOffered+=1;
+                    }
+
+                    Course updatedCourse = new Course(name, code, strSessionsOffered, "");
                     Course.courseList.add(updatedCourse);
                     System.out.println("After call:" + Course.courseList.size());
-                    System.out.println("courseList.get(3) (fall)" + Course.courseList.get(3).sessions[0]);
-                    System.out.println("courseList.get(3) (winter)" + Course.courseList.get(3).sessions[1]);
-                    System.out.println("courseList.get(3) (summer)" + Course.courseList.get(3).sessions[2]);
+                    System.out.println("courseList.get(3) (fall)" + Course.courseList.get(3).sessions.charAt(0));
+                    System.out.println("courseList.get(3) (winter)" + Course.courseList.get(3).sessions.charAt(1));
+                    System.out.println("courseList.get(3) (summer)" + Course.courseList.get(3).sessions.charAt(2));
                     Toast.makeText(getActivity().getApplicationContext(),
                             ("Course \"" + code + "\" has been successfully updated!"),
                             Toast.LENGTH_SHORT).show();

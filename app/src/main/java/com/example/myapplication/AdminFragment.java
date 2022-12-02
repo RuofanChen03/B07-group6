@@ -15,21 +15,22 @@ import com.example.myapplication.Course;
 import com.example.myapplication.databinding.AdminFragmentBinding;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class AdminFragment extends Fragment{
     ////////////////////////////////
     //TESTING FUNCTIONS
     private ArrayList<Course> createDummy(){
-        Course A48 = new Course("Intro to Comp Sci", "CSCA48", new boolean[]{false, true, true}, null);
-        ArrayList<Course>prereqs = new ArrayList<Course>();
-        prereqs.add(A48);
-        Course B09 = new Course("Systems Programming", "CSCB09", new boolean[]{false, true, true}, null);
+        Course A48 = new Course("Intro to Comp Sci", "CSCA48", "000", "");
+        //String prereqs = "";
+        Course B09 = new Course("Systems Programming", "CSCB09", "000", "CSCA48");
 
         //ArrayList<Course> prereqs = new ArrayList<Course>();
-        prereqs.add(B09);
-        Course C37 = new Course("Computational Mathematics", "CSCC37", new boolean[]{true, false, false}, prereqs);
+        Course C37 = new Course("Computational Mathematics", "CSCC37", "000", "");
 
+        C37.AddPrerequisite(A48);
+        C37.AddPrerequisite(B09);
         //public Course(String name, String code, boolean[] sessions, List<Course> prerequisites)
         //dummy data set includes, default course, empty course, course with prereq
         ArrayList<Course> dummy = new ArrayList<Course>();

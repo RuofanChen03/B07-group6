@@ -19,6 +19,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.myapplication.databinding.ActivityAdminCreateBinding;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class AdminCreateActivity extends AppCompatActivity {
 
@@ -71,7 +72,7 @@ public class AdminCreateActivity extends AppCompatActivity {
         SaveInput.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view){
                 System.out.println("Before call:"+Course.courseList.size());
-                Course createdCourse = new Course(GetInput.getText().toString(), "",  new boolean[]{false, false, false}, new ArrayList<Course>());
+                Course createdCourse = new Course(GetInput.getText().toString(), "",  "000", "");
                 Course.courseList.add(createdCourse);
                 System.out.println("After call:"+Course.courseList.size());
             }
