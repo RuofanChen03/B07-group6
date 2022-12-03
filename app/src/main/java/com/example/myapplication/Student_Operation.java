@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,14 +21,11 @@ import java.util.HashSet;
 import java.util.List;
 
 import Student.CourseList;
-import Student.FinalAllCourses;
-import Student.GetAllCourses;
 import Student.TestData;
 
 public class Student_Operation extends AppCompatActivity {
 
 
-    public static GetAllCourses AllCourses;
     public static ArrayList<String> AllcoursesCode;
     public static HashSet<CourseList> CourseHashSet;
     public static TestData Student_Past_Courses;

@@ -1,6 +1,6 @@
 package com.example.myapplication;
 
-import static com.example.myapplication.Student_Operation.AllCourses;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,7 +16,6 @@ import android.widget.Toast;
 import java.util.HashSet;
 
 import Student.CourseList;
-import Student.FinalAllCourses;
 
 public class Student_View_Future_activity extends AppCompatActivity {
 

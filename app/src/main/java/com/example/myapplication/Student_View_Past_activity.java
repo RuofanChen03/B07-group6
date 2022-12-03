@@ -1,7 +1,5 @@
 package com.example.myapplication;
 
-import static com.example.myapplication.Student_Operation.AllCourses;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -16,7 +14,6 @@ import java.util.*;
 
 
 import Student.CourseList;
-import Student.FinalAllCourses;
 
 public class Student_View_Past_activity extends AppCompatActivity {
 
