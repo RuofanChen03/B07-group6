@@ -73,16 +73,6 @@ public class AdminEdit extends Fragment {
         });
         return binding.getRoot();
     }
-/*
-    public static int getByCourseCode(String code){
-        for(int i=0; i<Course.courseList.size(); i++){
-            System.out.println(Course.courseList.get(i).courseCode);
-            if(Course.courseList.get(i).courseCode.equals(code)) return i;
-        }
-        return -1;
-    }
-
- */
 
     Button SaveInput;
     EditText GetInput;
@@ -114,64 +104,24 @@ public class AdminEdit extends Fragment {
                             "Course does not exist. Try spelling it again or go back to add a new course!",
                             Toast.LENGTH_SHORT).show();
                 }
+                //course exists
                 else{
                     TextView tempName = (TextView) getActivity().findViewById(R.id.EditNameInput);
                     TextView tempCode = (TextView) getActivity().findViewById(R.id.EditCodeInput);
+
                     //filling in all the fetched data
                     for(Course storedCourse : courses){
-                        if(storedCourse.courseCode.equals(codeOfGetInput)){
+                        if(storedCourse.courseCode.equals(codeOfGetInput)){ //based on the matching key code
                             tempName.setText(storedCourse.courseName);
                             tempCode.setText(storedCourse.courseCode);
                         }
                     }
 
-                    /*
-                    ref.child("" + createdCourse.hashCode()).setValue(createdCourse);
-                    Log.i("course created", createdCourse.toString());
-                    TextView tempText = (TextView) getActivity().findViewById(R.id.EditNameInput);
-                    tempText.setText());
-                    //tempText.setText(Course.courseList.get(indexOfCourseToEdit).courseName);
-                    tempText = (TextView) getActivity().findViewById(R.id.EditCodeInput);
-                    //tempText.setText(Course.courseList.get(indexOfCourseToEdit).courseCode);
-
-                     */
                 }
-/*
-                //CHECK IF EXISTS
-
-
-
-                ref.child("" + code.hashCode()).setValue(createdCourse);
-                Log.i("course created", createdCourse.toString());
-
-
-
-                courseToEdit = GetInput.getText().toString();
-                int indexOfCourseToEdit = getByCourseCode(courseToEdit);
-                //FOR TESTING
-                //indexOfCourseToEdit = 0;
-                //END TESTING
-                if(indexOfCourseToEdit < 0) {
-                    Toast.makeText(getActivity().getApplicationContext(),
-                            "Course does not exist. Try spelling it again or go back to add a new course!",
-                            Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    //filling in all the fetched data
-                    TextView tempText = (TextView) getActivity().findViewById(R.id.EditNameInput);
-                    tempText.setText(Course.courseList.get(indexOfCourseToEdit).courseName);
-                    tempText = (TextView) getActivity().findViewById(R.id.EditCodeInput);
-                    tempText.setText(Course.courseList.get(indexOfCourseToEdit).courseCode);
-                }
-
- */
             }
-
-
         });
 
-
-
+        //navigation
         binding.AdminHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -180,8 +130,11 @@ public class AdminEdit extends Fragment {
             }
         });
 
+        //Setting the accessors for these buttons
         SaveInput = getActivity().findViewById(R.id.submit);
         GetInput = getActivity().findViewById(R.id.CourseToEditText);
+
+        //listening for changes to the sessions available
         boolean sessionsOffered[] = {false, false, false};
 
         binding.FallSessionChip.setOnClickListener(new View.OnClickListener(){
@@ -206,10 +159,10 @@ public class AdminEdit extends Fragment {
             }
         });
 
+        //on submitting the changes
         binding.submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("Reached the submission of edit course");
 
                 EditText GetInput = getActivity().findViewById(R.id.CourseToEditText);
                 String codeOfGetInput = GetInput.getText().toString();
@@ -222,10 +175,10 @@ public class AdminEdit extends Fragment {
                 }
                 //proper input
                 else {
-                    System.out.println("Before call:"+Course.courseList.size());
-                    GetInput = getActivity().findViewById(R.id.CreateNameInput);
+                    System.out.println("Before call:");
+                    GetInput = getActivity().findViewById(R.id.EditNameInput);
                     name = GetInput.getText().toString();
-                    GetInput = getActivity().findViewById(R.id.CreateCodeInput);
+                    GetInput = getActivity().findViewById(R.id.EditCodeInput);
                     code = GetInput.getText().toString();
 
                     //converting sessions into a string
@@ -235,70 +188,21 @@ public class AdminEdit extends Fragment {
                         else strSessionsOffered+=1;
                     }
 
+                    //looking through the courses hashset to find which one we want to change
                     for(Course storedCourse : courses){
                         if(storedCourse.courseCode.equals(codeOfGetInput)){
                             System.out.println("storedCourse = "+storedCourse.courseCode);
                             ref.child(""+storedCourse.hashCode()).child("courseName").setValue(name);
                             ref.child(""+storedCourse.hashCode()).child("courseCode").setValue(code);
+                            //MISSING PREREQUISITE
                             ref.child(""+storedCourse.hashCode()).child("sessions").setValue(strSessionsOffered);
-                            //ref.child("" + storedCourse.hashCode()).updateChildren();
                         }
                     }
                     Toast.makeText(getActivity().getApplicationContext(),
-                            ("Course \"" + code + "\" has been successfully created!"),
+                            ("Course \"" + code + "\" has been successfully edited!"),
                             Toast.LENGTH_SHORT).show();
 
                 }
-                /*
-                //Course c = new Course();
-
-                    Course createdCourse = new Course(name, code, strSessionsOffered, "");
-                    //Course.courseList.add(createdCourse);
-                    ref.child("" + createdCourse.hashCode()).update(createdCourse);
-                    Log.i("course created", createdCourse.toString());
-                    System.out.println("Code of most recent course: " + Course.courseList.get(Course.courseList.size()-1).courseCode);
-                    /*
-                    System.out.println("courseList.get(3) (fall)" + Course.courseList.get(3).sessions.charAt(0));
-                    System.out.println("courseList.get(3) (winter)" + Course.courseList.get(3).sessions.charAt(0));
-                    System.out.println("courseList.get(3) (summer)" + Course.courseList.get(3).sessions.charAt(0));
-                    */
-
-
-                //System.out.println("REA");
-                //Course c = new Course();
-                //System.out.println("IS COURSE NULL: "+Course.courseList == null);
-
-                //PLEASE NOTE THAT THIS DOESN'T CURRENTLY WORK. THIS IS BECAUSE OF HOW THE DATA
-                // LIFECYCLE IN ANDROID WORKS, ESSENTIALLY KILLING THE USE OF THE STATIC LIST<COURSE>
-                // ELEMENT. THIS WILL BE FIXED WHEN FIREBASE IS FULLY IMPLEMENTED
-                //System.out.println("Before call:"+Course.courseList.size());
-/*
-                int indexOfCourseToEdit = getByCourseCode(courseToEdit);
-
-                if(indexOfCourseToEdit>=0){
-                    GetInput = getActivity().findViewById(R.id.EditNameInput);
-                    name = GetInput.getText().toString();
-                    GetInput = getActivity().findViewById(R.id.EditCodeInput);
-                    code = GetInput.getText().toString();
-                    String strSessionsOffered = "";
-                    for(boolean offered : sessionsOffered){
-                        if(offered==false)strSessionsOffered+=0;
-                        else strSessionsOffered+=1;
-                    }
-
-                    Course updatedCourse = new Course(name, code, strSessionsOffered, "");
-                    Course.courseList.add(updatedCourse);
-                    System.out.println("After call:" + Course.courseList.size());
-                    System.out.println("courseList.get(3) (fall)" + Course.courseList.get(3).sessions.charAt(0));
-                    System.out.println("courseList.get(3) (winter)" + Course.courseList.get(3).sessions.charAt(1));
-                    System.out.println("courseList.get(3) (summer)" + Course.courseList.get(3).sessions.charAt(2));
-                    Toast.makeText(getActivity().getApplicationContext(),
-                            ("Course \"" + code + "\" has been successfully updated!"),
-                            Toast.LENGTH_SHORT).show();
-
-                }
-
- */
 
             }
         });

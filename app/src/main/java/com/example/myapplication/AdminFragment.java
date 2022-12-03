@@ -19,54 +19,13 @@ import java.util.HashSet;
 import java.util.List;
 
 public class AdminFragment extends Fragment{
-    ////////////////////////////////
-    //TESTING FUNCTIONS
-    private ArrayList<Course> createDummy(){
-        Course A48 = new Course("Intro to Comp Sci", "CSCA48", "000", "");
-        //String prereqs = "";
-        Course B09 = new Course("Systems Programming", "CSCB09", "000", "CSCA48");
-
-        //ArrayList<Course> prereqs = new ArrayList<Course>();
-        Course C37 = new Course("Computational Mathematics", "CSCC37", "000", "");
-
-        C37.AddPrerequisite(A48);
-        C37.AddPrerequisite(B09);
-        //public Course(String name, String code, boolean[] sessions, List<Course> prerequisites)
-        //dummy data set includes, default course, empty course, course with prereq
-        ArrayList<Course> dummy = new ArrayList<Course>();
-        dummy.add(B09);
-        dummy.add(new Course());
-        dummy.add(C37);
-        return dummy;
-    }
-
-    ArrayList<Course> dummy = createDummy();
-    /////////////////////////////////
-
-    //REAL FUNCTIONS
     private AdminFragmentBinding binding;
-    //LinearLayout mylayout = (LinearLayout) findViewById(R.id.admin_fragment.xml);
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ){
-        System.out.println("DUMMY SIZE: "+dummy.size());
-        Course.courseList = dummy;
-        System.out.println("In AdminFragment");
-        //render all the currently registered courses on screen
         binding = AdminFragmentBinding.inflate(inflater, container, false);
-        for (int i = 0; i < dummy.size(); i++) {
-            //i got this off a quora answer, doesnt work but the idea is there
-            //oncreateview() is called when this frame is "opened" by the user
-            /**
-             Button btn = new Button (AdminFragment.context);
-             btn.setWidth(40);
-             btn.setHeight(20);
-             btn.setText(arrylist.get(i).gettext());
-             yourlayout.addView(btn);
-             **/
-        }
         binding.AdminCreateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,10 +49,6 @@ public class AdminFragment extends Fragment{
             }
         });
         return binding.getRoot();
-    }
-
-    public ArrayList<Course> addNewCourse(){
-        return null; //placeholder
     }
 
 }
