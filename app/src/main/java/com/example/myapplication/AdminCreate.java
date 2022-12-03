@@ -119,6 +119,7 @@ public class AdminCreate extends Fragment{
                 //Course c = new Course();
                 System.out.println("IS COURSE NULL: "+Course.courseList == null);
                 System.out.println("Before call:"+Course.courseList.size());
+                GetInput = getActivity().findViewById(R.id.CreateNameInput);
                 name = GetInput.getText().toString();
                 GetInput = getActivity().findViewById(R.id.CreateCodeInput);
                 code = GetInput.getText().toString();
