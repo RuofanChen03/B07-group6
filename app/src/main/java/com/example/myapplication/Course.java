@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.util.Log;
+import android.widget.EditText;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,7 +29,9 @@ public class Course {
     String sessions;
     String prerequisites;
 
-    static ArrayList<Course> courseList = new ArrayList<Course>();
+    private DatabaseReference ref;
+    private String DATABASEURL = "https://b07project-943e2-default-rtdb.firebaseio.com/";
+    protected HashSet<Course> courses = new HashSet<Course>();
 
     //default course initializer
     public Course(){
@@ -47,7 +50,13 @@ public class Course {
     }
 
     public void AddPrerequisite(Course course) {
-        prerequisites += ","+course.courseCode;
+        this.prerequisites += ","+course.courseCode;
+        String codeOfGetInput = course.courseCode;
+        for(Course storedCourse : courses){
+            if(storedCourse.courseCode.equals(codeOfGetInput)){
+                ref.child(""+storedCourse.hashCode()).child("prerequisites").setValue(this.prerequisites);
+            }
+        }
     }
     public String[] splitPrereqsIntoArray(String prereqs){
         return prereqs.split(",");
@@ -65,54 +74,10 @@ public class Course {
     public String getPrerequisites(){
         return this.prerequisites;
     }
-    //public void AddPrerequisite(Course course) { prerequisites.add(course.courseCode); }
-    /*
-    public Course GetCourseFromCourseCode(String code){
-        Course[] returnedCourse = new Course[1];
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                try{
-                    courseList.clear();
-                    Log.i("course database", "data changed");
-                    for (DataSnapshot child : dataSnapshot.getChildren()) {
-                        Course c = child.getValue(Course.class);
-                        if(c.courseCode.equals(code)) returnedCourse[0]=c;
-                    }
-                }
-                catch(Exception e){
-                    Log.w("warning","error with persistent listener", e);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w("warning", "loadPost:onCancelled", databaseError.toException());
-            }
-        });
-        return returnedCourse[0];
-    }
-
-     */
-
-    public static int getByCourseCode(String code){
-        for(int i=0; i<courseList.size(); i++){
-            System.out.println(courseList.get(i).courseCode);
-            if(courseList.get(i).courseCode.equals(code)) return i;
-        }
-        return -1;
-    }
-
 
     @Override
     public int hashCode() {
         return courseCode.hashCode();
     }
 
-    public static boolean doesCourseCodeExist(String code){
-        for(Course c : courseList){
-            if(c.courseCode.toLowerCase(Locale.ROOT).equals(code.toLowerCase())) return true;
-        }
-        return false;
-    }
 }
