@@ -4,20 +4,129 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+
+import Student.CourseList;
+import Student.FinalAllCourses;
+import Student.GetAllCourses;
 import Student.TestData;
 
 public class Student_Operation extends AppCompatActivity {
 
+
+    public static GetAllCourses AllCourses;
+    public static ArrayList<String> AllcoursesCode;
+    public static HashSet<CourseList> CourseHashSet;
+    public static TestData Student_Past_Courses;
+    public static TestData Student_Future_Courses;
+    public static int state;
+    private String DS = "https://b07project-943e2-default-rtdb.firebaseio.com/";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        state = 0;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_operation);
 
+        CourseHashSet = new HashSet<CourseList>();
 
+        DatabaseReference CLref = FirebaseDatabase.getInstance(DS).getReference("Courses_Test");
+
+        // Read from the database
+        CLref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                try {
+                    CourseHashSet.clear();
+                    Log.i("Get All Courses", "getting all courses");
+
+                    for (DataSnapshot child : dataSnapshot.getChildren()) {
+
+                        //转换 prerequisites
+                        String prepre = child.child("prerequisites").getValue(String.class);
+                        List<String> prerequisite = Arrays.asList(prepre.split(","));
+
+                        ArrayList<String> pre1=new ArrayList<String>();
+                        //change list to arraylist
+                        for(String s1:prerequisite){
+                            pre1.add(s1);
+                        }
+
+
+                        //转换offeringSession
+                        ArrayList<String> offeringSession = new ArrayList<String>();
+                        String s=child.child("sessions").getValue(String.class);
+
+                        if (s.length()==3){
+                            if(s.charAt(0)==('1')) offeringSession.add("F");
+                            if(s.charAt(1)=='1') offeringSession.add("W");
+                            if(s.charAt(2)=='1') offeringSession.add("S");
+                        }
+
+                        CourseList value = new CourseList(child.child("courseCode").getValue(String.class),
+                                child.child("courseName").getValue(String.class),offeringSession,pre1);
+                        CourseHashSet.add(value);
+                        //System.out.println(CourseHashSet);
+
+                        Log.d("Read all courses list", "CourseCode is: " + value.courseCode);
+                    }
+                    Student_Operation.CourseHashSet = CourseHashSet;
+                    System.out.println("Fuck you"+Student_Operation.CourseHashSet);
+                    //GetCoursesValue(CourseHashSet);
+                    //Student_Operation.CourseHashSet = CourseHashSet;
+                } catch (Exception e) {
+                    Log.w("warning", "error with persistent listener", e);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("Failed to read courses", "Failed to read value.", error.toException());
+            }
+        });
+
+        Student_Future_Courses = new Student.TestData("a");
+        Student_Past_Courses = new Student.TestData(1);
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                System.out.println("=Fuvk"+ CourseHashSet);
+
+                //TestData SA = new Student.TestData();
+                //CourseHashSet = SA.testCourse;
+                //AllcoursesCode = SA.courseCodeList;
+
+                //CourseHashSet = new HashSet<CourseList>();
+                //GetAllCourses TempAC = new GetAllCourses();
+
+                System.out.println("=Fuvk"+ CourseHashSet);
+
+                //System.out.println(FinalAllCourses.CourseHashSet);
+                AllcoursesCode = new ArrayList<String>();
+                for (CourseList Course: CourseHashSet) {
+                    AllcoursesCode.add(Course.courseCode);
+                }
+                 System.out.println(AllcoursesCode);
+            }
+        }, 1000);   //1 seconds
 
         Button go_back = (Button) findViewById(R.id.Go_Back);
         go_back.setOnClickListener(new View.OnClickListener() {
@@ -51,11 +160,7 @@ public class Student_Operation extends AppCompatActivity {
             }
 
         });
-        LoginActivity.AllCourses = new TestData();
-        //MainActivity.AllCourses=  test.testCourse;
+
     }
-
-
-
 
 }

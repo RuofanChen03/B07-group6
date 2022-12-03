@@ -8,6 +8,7 @@ public class TestData {
 
     //所有course
     public TestData(){
+
         //course1;
         ArrayList<String> os1 = new ArrayList<String>();
         os1.add("F");
@@ -170,10 +171,15 @@ public class TestData {
         //courseCodeList = CCL.toArray(new String[CCL.size()]);
 
 
+
+        testCourse=new HashSet<CourseList>();
+        courseCodeList = new ArrayList<String>();
+
     }
 
     //现有 past course
     public TestData(int a){
+       /*
         //course1;
         ArrayList<String> os1 = new ArrayList<String>();
         os1.add("F");
@@ -218,12 +224,20 @@ public class TestData {
         }
         //courseCodeList = CCL.toArray(new String[CCL.size()]);
 
+        */
+
+        testCourse=new HashSet<CourseList>();
+        courseCodeList = new ArrayList<String>();
+
+
+
+
 
     }
 
     //future courses data
     public TestData(String a){
-
+        /*
         //course12;
         ArrayList<String> os12 = new ArrayList<String>();
         os12.add("W");
@@ -275,6 +289,9 @@ public class TestData {
             courseCodeList.add(Course.courseCode);
         }
         //courseCodeList = CCL.toArray(new String[CCL.size()]);
+        */
+        testCourse=new HashSet<CourseList>();
+        courseCodeList = new ArrayList<String>();
 
 
     }

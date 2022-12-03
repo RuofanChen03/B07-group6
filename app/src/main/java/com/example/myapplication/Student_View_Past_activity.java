@@ -1,11 +1,10 @@
 package com.example.myapplication;
 
+import static com.example.myapplication.Student_Operation.AllCourses;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
-import android.database.CursorIndexOutOfBoundsException;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -13,19 +12,17 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.*;
 
 
 import Student.CourseList;
-import Student.TestData;
+import Student.FinalAllCourses;
 
 public class Student_View_Past_activity extends AppCompatActivity {
 
     //past course list
     //HashSet<CourseList> TestCourses;
+    //public HashSet<CourseList> CourseHashSet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +32,11 @@ public class Student_View_Past_activity extends AppCompatActivity {
         //测试课程数据 view
         String text="";
         //MainActivity.Student_Past_Courses = new Student.TestData(1);
-        HashSet<CourseList> TestCourses = LoginActivity.Student_Past_Courses.testCourse;
+        HashSet<CourseList> TestCourses = Student_Operation.Student_Past_Courses.testCourse;
 
         for (CourseList Course: TestCourses) {
-            text = text + Course.courseCode +": "+ Course.offeringSession+ '\n'+ "                 " +
-                    Course.prerequisite  +'\n';
+            text = text + Course.courseCode +": "+ Course.offeringSession + '\n'+ "                 " +
+                    Course.prerequisite +'\n';
         }
 
 
@@ -48,9 +45,9 @@ public class Student_View_Past_activity extends AppCompatActivity {
         PCL.setText(text);
 
         //测试数据导入
-        TestData ChoiceList = LoginActivity.AllCourses;
+        //GetAllCourses ChoiceList = Student_Operation.AllCourses;
         //Creating the instance of ArrayAdapter containing list of names
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, ChoiceList.courseCodeList);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, Student_Operation.AllcoursesCode);
         //Getting the instance of AutoCompleteTextView
         AutoCompleteTextView Choices =  (AutoCompleteTextView)findViewById(R.id.add_Past_Choice);
         Choices.setThreshold(1);//will start working from first character
@@ -62,10 +59,12 @@ public class Student_View_Past_activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Firebase添加数据
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference myRef = database.getReference("message");
+                //FirebaseDatabase database = FirebaseDatabase.getInstance();
+                //DatabaseReference myRef = database.getReference("message");
 
-                myRef.setValue("Hello, World!");
+                //myRef.setValue("Hello, World!");
+
+
                 //Intent intent = new Intent( Student_View_Past_activity.this,Student_Add_Past.class);
                 //startActivity(intent);
                 //finish();
@@ -73,21 +72,21 @@ public class Student_View_Past_activity extends AppCompatActivity {
                 String CC =  CCV.getText().toString();
 
                 //判断是否在可选的课程列表中
-                if (!ChoiceList.courseCodeList.contains(CC)){
+                if (!Student_Operation.AllcoursesCode.contains(CC)){
                     Toast.makeText(Student_View_Past_activity.this, "The Course is not available now. Please re-enter.", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (LoginActivity.Student_Past_Courses.courseCodeList.contains(CC)){
+                if (Student_Operation.Student_Past_Courses.courseCodeList.contains(CC)){
                     Toast.makeText(Student_View_Past_activity.this, "The Course has existed. Please re-enter.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                for (CourseList C: ChoiceList.testCourse){
+                for (CourseList C: Student_Operation.CourseHashSet){
                     //Toast.makeText(Student_View_Past_activity.this, C.courseCode+"\n"+CC, Toast.LENGTH_LONG).show();
                     if (C.courseCode.equals(CC)){
                         //Toast.makeText(Student_View_Past_activity.this, C.courseCode, Toast.LENGTH_LONG).show();
                         TestCourses.add(C);
-                        LoginActivity.Student_Past_Courses.courseCodeList.add(CC);
+                        Student_Operation.Student_Past_Courses.courseCodeList.add(CC);
                         //Toast.makeText(Student_View_Past_activity.this, C.courseCode, Toast.LENGTH_LONG).show();
                         break;
                     }
@@ -100,8 +99,8 @@ public class Student_View_Past_activity extends AppCompatActivity {
 
 
                 for (CourseList Course: TestCourses) {
-                    text = text + Course.courseCode +": "+ Course.offeringSession+ '\n'+ "                 " +
-                            Course.prerequisite  +'\n';
+                    text = text + Course.courseCode +": "+ Course.offeringSession + '\n'+ "                 " +
+                            Course.prerequisite +'\n';
                 }
                 //可以不用重新生成text，可以直接再最后加？
                 PCL.setText(text);
@@ -115,10 +114,10 @@ public class Student_View_Past_activity extends AppCompatActivity {
             public void onClick(View v) {
 
                 //Firebase删除数据
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference myRef = database.getReference("message");
+                //FirebaseDatabase database = FirebaseDatabase.getInstance();
+                //DatabaseReference myRef = database.getReference("message");
 
-                myRef.removeValue();
+                //myRef.removeValue();
 
                 //Intent intent = new Intent( Student_Operation.this,MainActivity.class);
                 //startActivity(intent);
@@ -128,7 +127,7 @@ public class Student_View_Past_activity extends AppCompatActivity {
                 String CC =  CCV.getText().toString();
 
                 //判断是否在已有的课程列表中
-                if (!LoginActivity.Student_Past_Courses.courseCodeList.contains(CC)){
+                if (!Student_Operation.Student_Past_Courses.courseCodeList.contains(CC)){
                     Toast.makeText(Student_View_Past_activity.this, "The Course is not existing. Please re-enter.", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -139,7 +138,7 @@ public class Student_View_Past_activity extends AppCompatActivity {
                     if (C.courseCode.equals(CC)){
                         //Toast.makeText(Student_View_Past_activity.this, C.courseCode, Toast.LENGTH_LONG).show();
                         TestCourses.remove(C);
-                        LoginActivity.Student_Past_Courses.courseCodeList.remove(CC);
+                        Student_Operation.Student_Past_Courses.courseCodeList.remove(CC);
                         //Toast.makeText(Student_View_Past_activity.this, C.courseCode, Toast.LENGTH_LONG).show();
                         break;
                     }
@@ -151,8 +150,8 @@ public class Student_View_Past_activity extends AppCompatActivity {
                 //TestCourses = Test.testCourse;
 
                 for (CourseList Course: TestCourses) {
-                    text = text + Course.courseCode +": "+ Course.offeringSession+ '\n'+ "                 " +
-                            Course.prerequisite  +'\n';
+                    text = text + Course.courseCode +": "+ Course.offeringSession + '\n'+ "                 " +
+                            Course.prerequisite +'\n';
                 }
                 PCL.setText(text);
 
