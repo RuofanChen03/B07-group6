@@ -21,38 +21,36 @@ import java.util.HashSet;
 import java.util.List;
 
 import Student.CourseList;
-import Student.TestData;
+import Student.CourseDataType;
 
 public class Student_Operation extends AppCompatActivity {
 
 
-    public static ArrayList<String> AllcoursesCode;
-    public static HashSet<CourseList> CourseHashSet;
-    public static TestData Student_Past_Courses;
-    public static TestData Student_Future_Courses;
-    public static int state;
+    public static ArrayList<String> AllCoursesCode;
+    public static HashSet<CourseList> AllCourseHashSet;
+    public static CourseDataType Student_Past_Courses;
+    public static CourseDataType Student_Future_Courses;
     private String DS = "https://b07project-943e2-default-rtdb.firebaseio.com/";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        state = 0;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_operation);
 
-        CourseHashSet = new HashSet<CourseList>();
+        AllCourseHashSet = new HashSet<CourseList>();
 
         DatabaseReference CLref = FirebaseDatabase.getInstance(DS).getReference("Courses_Test");
-
         // Read from the database
         CLref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 try {
-                    CourseHashSet.clear();
+                    AllCourseHashSet.clear();
                     Log.i("Get All Courses", "getting all courses");
 
                     for (DataSnapshot child : dataSnapshot.getChildren()) {
+                        //System.out.println(child.child("courseCode"));
 
                         //转换 prerequisites
                         String prepre = child.child("prerequisites").getValue(String.class);
@@ -69,6 +67,7 @@ public class Student_Operation extends AppCompatActivity {
                         ArrayList<String> offeringSession = new ArrayList<String>();
                         String s=child.child("sessions").getValue(String.class);
 
+
                         if (s.length()==3){
                             if(s.charAt(0)==('1')) offeringSession.add("F");
                             if(s.charAt(1)=='1') offeringSession.add("W");
@@ -77,13 +76,13 @@ public class Student_Operation extends AppCompatActivity {
 
                         CourseList value = new CourseList(child.child("courseCode").getValue(String.class),
                                 child.child("courseName").getValue(String.class),offeringSession,pre1);
-                        CourseHashSet.add(value);
-                        //System.out.println(CourseHashSet);
+                        AllCourseHashSet.add(value);
+                        //System.out.println(value);
+                        System.out.println(AllCourseHashSet);
 
                         Log.d("Read all courses list", "CourseCode is: " + value.courseCode);
                     }
-                    Student_Operation.CourseHashSet = CourseHashSet;
-                    System.out.println("Fuck you"+Student_Operation.CourseHashSet);
+                    Student_Operation.AllCourseHashSet = AllCourseHashSet;
                     //GetCoursesValue(CourseHashSet);
                     //Student_Operation.CourseHashSet = CourseHashSet;
                 } catch (Exception e) {
@@ -98,29 +97,20 @@ public class Student_Operation extends AppCompatActivity {
             }
         });
 
-        Student_Future_Courses = new Student.TestData("a");
-        Student_Past_Courses = new Student.TestData(1);
+        Student_Future_Courses = new CourseDataType();
+        Student_Past_Courses = new CourseDataType();
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-                System.out.println("=Fuvk"+ CourseHashSet);
-
-                //TestData SA = new Student.TestData();
-                //CourseHashSet = SA.testCourse;
-                //AllcoursesCode = SA.courseCodeList;
-
-                //CourseHashSet = new HashSet<CourseList>();
-                //GetAllCourses TempAC = new GetAllCourses();
-
-                System.out.println("=Fuvk"+ CourseHashSet);
+                //System.out.println("real"+ CourseHashSet);
 
                 //System.out.println(FinalAllCourses.CourseHashSet);
-                AllcoursesCode = new ArrayList<String>();
-                for (CourseList Course: CourseHashSet) {
-                    AllcoursesCode.add(Course.courseCode);
+                AllCoursesCode = new ArrayList<String>();
+                for (CourseList Course: AllCourseHashSet) {
+                    AllCoursesCode.add(Course.courseCode);
                 }
-                 System.out.println(AllcoursesCode);
+                 //System.out.println(AllCoursesCode);
             }
         }, 1000);   //1 seconds
 

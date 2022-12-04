@@ -29,7 +29,7 @@ public class Student_View_Past_activity extends AppCompatActivity {
         //测试课程数据 view
         String text="";
         //MainActivity.Student_Past_Courses = new Student.TestData(1);
-        HashSet<CourseList> TestCourses = Student_Operation.Student_Past_Courses.testCourse;
+        HashSet<CourseList> TestCourses = Student_Operation.Student_Past_Courses.CourseHAshSet;
 
         for (CourseList Course: TestCourses) {
             text = text + Course.courseCode +": "+ Course.offeringSession + '\n'+ "                 " +
@@ -44,7 +44,7 @@ public class Student_View_Past_activity extends AppCompatActivity {
         //测试数据导入
         //GetAllCourses ChoiceList = Student_Operation.AllCourses;
         //Creating the instance of ArrayAdapter containing list of names
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, Student_Operation.AllcoursesCode);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, Student_Operation.AllCoursesCode);
         //Getting the instance of AutoCompleteTextView
         AutoCompleteTextView Choices =  (AutoCompleteTextView)findViewById(R.id.add_Past_Choice);
         Choices.setThreshold(1);//will start working from first character
@@ -69,7 +69,7 @@ public class Student_View_Past_activity extends AppCompatActivity {
                 String CC =  CCV.getText().toString();
 
                 //判断是否在可选的课程列表中
-                if (!Student_Operation.AllcoursesCode.contains(CC)){
+                if (!Student_Operation.AllCoursesCode.contains(CC)){
                     Toast.makeText(Student_View_Past_activity.this, "The Course is not available now. Please re-enter.", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -78,7 +78,7 @@ public class Student_View_Past_activity extends AppCompatActivity {
                     return;
                 }
 
-                for (CourseList C: Student_Operation.CourseHashSet){
+                for (CourseList C: Student_Operation.AllCourseHashSet){
                     //Toast.makeText(Student_View_Past_activity.this, C.courseCode+"\n"+CC, Toast.LENGTH_LONG).show();
                     if (C.courseCode.equals(CC)){
                         //Toast.makeText(Student_View_Past_activity.this, C.courseCode, Toast.LENGTH_LONG).show();

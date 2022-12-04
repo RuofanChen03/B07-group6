@@ -18,4 +18,91 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.976" />
 
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="393dp"
+        android:layout_height="446dp"
+        android:layout_marginTop="72dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.454"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/Timeline_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="View Timeline"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </ScrollView>
+
+    <AutoCompleteTextView
+        android:id="@+id/Year_Choice"
+        android:layout_width="99dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="40dp"
+        android:accessibilityLiveRegion="none"
+        android:digits="1234567890"
+        android:hint="Year"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.87" />
+
+    <AutoCompleteTextView
+        android:id="@+id/Session_Choices"
+        android:layout_width="99dp"
+        android:layout_height="48dp"
+        android:hint="Sessions"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/GenerateR"
+        app:layout_constraintStart_toEndOf="@+id/Year_Choice"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.871" />
+
+    <TextView
+        android:id="@+id/Iwanntto"
+        android:layout_width="367dp"
+        android:layout_height="31dp"
+        android:layout_marginTop="20dp"
+        android:text="I want to start my future courses from:"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
+
+    <TextView
+        android:id="@+id/Gnerate_timeline_text"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        android:text="Generate Your Timeline"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/GenerateR"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="16dp"
+        android:text="Generate"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.873" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
