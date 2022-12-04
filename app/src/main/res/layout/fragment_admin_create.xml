@@ -31,20 +31,6 @@
         app:layout_constraintVertical_bias="0.758" />
 
     <EditText
-        android:id="@+id/CreateNameInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Enter the course name"
-        android:inputType="text"
-        app:layout_constraintBottom_toTopOf="@+id/AdminHome"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.482"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.294" />
-
-    <EditText
         android:id="@+id/CreateCodeInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -53,10 +39,63 @@
         android:inputType="text"
         app:layout_constraintBottom_toTopOf="@+id/AdminHome"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.079"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/CreateNameInput"
-        app:layout_constraintVertical_bias="0.091" />
+        app:layout_constraintVertical_bias="0.086" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/SummerSessionChip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checkable="true"
+        android:text="Summer"
+        app:layout_constraintBottom_toTopOf="@+id/submit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.051"
+        app:layout_constraintStart_toEndOf="@+id/WinterSessionChip"
+        app:layout_constraintTop_toBottomOf="@+id/CreateCodeInput"
+        app:layout_constraintVertical_bias="0.113" />
+
+    <EditText
+        android:id="@+id/CreateNameInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Enter the course name"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/AdminHome"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.079"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.352" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/WinterSessionChip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checkable="true"
+        android:text="Winter"
+        app:layout_constraintBottom_toTopOf="@+id/submit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.018"
+        app:layout_constraintStart_toEndOf="@+id/FallSessionChip"
+        app:layout_constraintTop_toBottomOf="@+id/CreateCodeInput"
+        app:layout_constraintVertical_bias="0.113" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/FallSessionChip"
+        android:layout_width="50dp"
+        android:layout_height="48dp"
+        android:checkable="true"
+        android:text="Fall"
+        app:layout_constraintBottom_toTopOf="@+id/submit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.052"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CreateCodeInput"
+        app:layout_constraintVertical_bias="0.113" />
 
     <Button
         android:id="@+id/submit"
@@ -69,44 +108,42 @@
         app:layout_constraintTop_toBottomOf="@+id/CreateNameInput"
         app:layout_constraintVertical_bias="0.916" />
 
-    <com.google.android.material.chip.Chip
-        android:id="@+id/WinterSessionChip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Winter"
-        android:checkable="true"
-        app:layout_constraintBottom_toTopOf="@+id/submit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toEndOf="@+id/FallSessionChip"
-        app:layout_constraintTop_toBottomOf="@+id/CreateCodeInput"
-        app:layout_constraintVertical_bias="0.192" />
 
-    <com.google.android.material.chip.Chip
-        android:id="@+id/SummerSessionChip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Summer"
-        android:checkable="true"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="125dp"
+        android:layout_height="268dp"
         app:layout_constraintBottom_toTopOf="@+id/submit"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.187"
-        app:layout_constraintStart_toEndOf="@+id/WinterSessionChip"
-        app:layout_constraintTop_toBottomOf="@+id/CreateCodeInput"
-        app:layout_constraintVertical_bias="0.192" />
+        app:layout_constraintHorizontal_bias="0.706"
+        app:layout_constraintStart_toEndOf="@+id/CreateCodeInput"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.07">
 
-    <com.google.android.material.chip.Chip
-        android:id="@+id/FallSessionChip"
-        android:layout_width="50dp"
-        android:layout_height="48dp"
-        android:text="Fall"
-        android:checkable="true"
-        app:layout_constraintBottom_toTopOf="@+id/submit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.238"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/CreateCodeInput"
-        app:layout_constraintVertical_bias="0.192" />
+        <ScrollView
+            android:id="@+id/AdminCreateScrollView"
+            android:layout_width="125dp"
+            android:layout_height="280dp"
+            app:layout_constraintBottom_toTopOf="@+id/submit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.65"
+            app:layout_constraintStart_toEndOf="@+id/CreateCodeInput"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintVertical_bias="0.282">
+
+            <LinearLayout
+                android:id="@+id/AdminCreateLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/submit"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.238"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/WinterSessionChip"></LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

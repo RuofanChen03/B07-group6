@@ -6,18 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".AdminEdit">
 
-    <com.google.android.material.chip.Chip
-        android:id="@+id/SummerSessionChip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:checkable="true"
-        android:text="Summer"
-        app:layout_constraintBottom_toTopOf="@+id/submit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.194"
-        app:layout_constraintStart_toEndOf="@+id/WinterSessionChip"
-        app:layout_constraintTop_toBottomOf="@+id/EditCodeInput"
-        app:layout_constraintVertical_bias="0.322" />
     <TextView
         android:id="@+id/textView"
         android:layout_width="273dp"
@@ -29,44 +17,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.047" />
-    <EditText
-        android:id="@+id/EditCodeInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Enter the course code"
-        android:inputType="text"
-        app:layout_constraintBottom_toTopOf="@+id/AdminHome"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EditNameInput"
-        app:layout_constraintVertical_bias="0.123" />
-
-    <Button
-        android:id="@+id/AdminHome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="36dp"
-        android:text="Return to Admin Homepage"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.476"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/submit"
-        app:layout_constraintVertical_bias="0.892" />
 
     <Button
         android:id="@+id/submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save Course with Change(s)"
+        android:text="Save New Course with Change(s)"
         app:layout_constraintBottom_toTopOf="@+id/AdminHome"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EditCodeInput"
+        app:layout_constraintVertical_bias="0.916" />
+
+    <Button
+        android:id="@+id/AdminHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Return to Admin Homepage"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EditNameInput"
-        app:layout_constraintVertical_bias="0.741" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.758" />
 
     <EditText
         android:id="@+id/EditNameInput"
@@ -77,22 +50,22 @@
         android:inputType="text"
         app:layout_constraintBottom_toTopOf="@+id/AdminHome"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintHorizontal_bias="0.079"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.487" />
+        app:layout_constraintVertical_bias="0.49" />
 
     <com.google.android.material.chip.Chip
-        android:id="@+id/WinterSessionChip"
+        android:id="@+id/SummerSessionChip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:checkable="true"
-        android:text="Winter"
+        android:text="Summer"
         app:layout_constraintBottom_toTopOf="@+id/submit"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.087"
-        app:layout_constraintStart_toEndOf="@+id/FallSessionChip"
-        app:layout_constraintTop_toBottomOf="@+id/EditCodeInput"
+        app:layout_constraintHorizontal_bias="0.071"
+        app:layout_constraintStart_toEndOf="@+id/WinterSessionChip"
+        app:layout_constraintTop_toTopOf="@+id/WinterSessionChip"
         app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.chip.Chip
@@ -103,10 +76,37 @@
         android:text="Fall"
         app:layout_constraintBottom_toTopOf="@+id/submit"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.249"
+        app:layout_constraintHorizontal_bias="0.036"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/EditCodeInput"
-        app:layout_constraintVertical_bias="0.322" />
+        app:layout_constraintVertical_bias="0.368" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/WinterSessionChip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checkable="true"
+        android:text="Winter"
+        app:layout_constraintBottom_toTopOf="@+id/submit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.038"
+        app:layout_constraintStart_toEndOf="@+id/FallSessionChip"
+        app:layout_constraintTop_toBottomOf="@+id/EditCodeInput"
+        app:layout_constraintVertical_bias="0.368" />
+
+    <EditText
+        android:id="@+id/EditCodeInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Enter the course code"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/AdminHome"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.094"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EditNameInput"
+        app:layout_constraintVertical_bias="0.124" />
 
     <Button
         android:id="@+id/SearchCourseForEditButton"
@@ -132,5 +132,40 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.847" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="125dp"
+        android:layout_height="250dp"
+        app:layout_constraintBottom_toTopOf="@+id/submit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.706"
+        app:layout_constraintStart_toEndOf="@+id/EditNameInput"
+        app:layout_constraintTop_toBottomOf="@+id/SearchCourseForEditButton"
+        app:layout_constraintVertical_bias="0.07">
+
+        <ScrollView
+            android:id="@+id/AdminCreateScrollView"
+            android:layout_width="125dp"
+            android:layout_height="250dp"
+            app:layout_constraintBottom_toTopOf="@+id/submit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.65"
+            app:layout_constraintStart_toEndOf="@+id/CreateCodeInput"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintVertical_bias="0.282">
+
+            <LinearLayout
+                android:id="@+id/AdminEditLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/submit"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.238"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/WinterSessionChip"></LinearLayout>
+        </ScrollView>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

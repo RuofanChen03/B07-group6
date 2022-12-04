@@ -48,16 +48,6 @@ public class Course {
         this.sessions = sessions;
         this.prerequisites = prerequisites;
     }
-
-    public void AddPrerequisite(Course course) {
-        this.prerequisites += ","+course.courseCode;
-        String codeOfGetInput = course.courseCode;
-        for(Course storedCourse : courses){
-            if(storedCourse.courseCode.equals(codeOfGetInput)){
-                ref.child(""+storedCourse.hashCode()).child("prerequisites").setValue(this.prerequisites);
-            }
-        }
-    }
     public String[] splitPrereqsIntoArray(String prereqs){
         return prereqs.split(",");
     }

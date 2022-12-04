@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ import com.example.myapplication.databinding.FragmentAdminCreateBinding;
 import com.example.myapplication.databinding.FragmentAdminEditBinding;
 import com.example.myapplication.databinding.AdminFragmentBinding;
 
+import com.google.android.material.chip.Chip;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,6 +38,7 @@ public class AdminEdit extends Fragment {
 
     private FragmentAdminEditBinding binding;
     private DatabaseReference ref;
+    private View rootView;
     private String DATABASEURL = "https://b07project-943e2-default-rtdb.firebaseio.com/";
     protected HashSet<Course> courses = new HashSet<Course>();
 
@@ -47,41 +50,76 @@ public class AdminEdit extends Fragment {
         System.out.println("In AdminEdit");
         ref = FirebaseDatabase.getInstance(DATABASEURL).getReference("Courses");
         binding = FragmentAdminEditBinding.inflate(inflater, container, false);
+        rootView = inflater.inflate(R.layout.fragment_admin_edit, container, false);
+        LinearLayout ll = (LinearLayout) rootView.findViewById(R.id.AdminEditLinearLayout);
 
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                try{
-                    courses.clear();
-                    Log.i("Courses database", "data changed");
-                    for (DataSnapshot child : dataSnapshot.getChildren()) {
-                        Course course = child.getValue(Course.class);
-                        // Due to hashset properties, if changes are made to the accounts, the old
-                        // data would be automatically overwritten.
-                        courses.add(course);
-                        Log.i("course added; ", course.toString());
+        int i=10000;
+        for(Course c : AdminViewModel.courses){
+            Button b = new Button(getActivity());
+            b.setText(c.courseCode);
+            b.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            b.setId(i);
+            i++;
+            ll.addView(b);
+            b.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Button searchCourseButton = getActivity().findViewById(R.id.SearchCourseForEditButton);
+                    if(searchCourseButton==null || searchCourseButton.toString().equals("")){
+                        Toast.makeText(getActivity().getApplicationContext(),
+                                "Please enter a course code first!",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        System.out.println("codeOfGetInput is: "+codeOfGetInput);
+                        AddPrerequisite(c);
                     }
                 }
-                catch(Exception e){
-                    Log.w("warning","error with persistent listener", e);
+            });
+        }
+
+        return rootView;
+    }
+
+    String p = "";
+
+    public void AddPrerequisite(Course course) {
+        String[] prereqsAsArray = (p).split(",");
+        for(String pre : prereqsAsArray){
+            System.out.println("pre = "+pre);
+            if(pre.equals(course.courseCode)){
+                Toast.makeText(getActivity().getApplicationContext(),
+                        "\""+course.courseCode+"\" has already been included as a prerequisite!",
+                        Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if(codeOfGetInput != null){
+                if(codeOfGetInput.equals(course.courseCode)){
+                    Toast.makeText(getActivity().getApplicationContext(),
+                            "\""+course.courseCode+"\" cannot be its own prerequisite!",
+                            Toast.LENGTH_SHORT).show();
+                    return;
                 }
             }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w("warning", "loadPost:onCancelled", databaseError.toException());
-            }
-        });
-        return binding.getRoot();
+
+        }
+
+        p += course.courseCode+",";
+        Toast.makeText(getActivity().getApplicationContext(),
+                "\""+course.courseCode + "\" has been added as a prerequisite.",
+                Toast.LENGTH_SHORT).show();
     }
 
     Button SaveInput;
     EditText GetInput;
     String name;
     String code;
+    String codeOfGetInput;
+    String[] splitPrerequisites = new String[AdminViewModel.courses.size()];
 
     //checking if the course exists
     public boolean courseInDatabase(String c){
-        for(Course storedCourse : courses){
+        for(Course storedCourse : AdminViewModel.courses){
             if (storedCourse.courseCode.equals(c)){
                 return true;
             }
@@ -91,12 +129,15 @@ public class AdminEdit extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         System.out.println("In ADMIN EDIT");
+        LinearLayout ll = (LinearLayout) rootView.findViewById(R.id.AdminEditLinearLayout);
 
-        binding.SearchCourseForEditButton.setOnClickListener(new View.OnClickListener() {
+        Button searchCourseButton = getActivity().findViewById(R.id.SearchCourseForEditButton);
+        searchCourseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                System.out.println("search course button reached");
                 EditText GetInput = getActivity().findViewById(R.id.CourseToEditText);
-                String codeOfGetInput = GetInput.getText().toString();
+                codeOfGetInput = GetInput.getText().toString();
 
                 //check if course doesn't exist
                 if(!courseInDatabase(codeOfGetInput)){
@@ -110,19 +151,19 @@ public class AdminEdit extends Fragment {
                     TextView tempCode = (TextView) getActivity().findViewById(R.id.EditCodeInput);
 
                     //filling in all the fetched data
-                    for(Course storedCourse : courses){
+                    for(Course storedCourse : AdminViewModel.courses){
                         if(storedCourse.courseCode.equals(codeOfGetInput)){ //based on the matching key code
                             tempName.setText(storedCourse.courseName);
                             tempCode.setText(storedCourse.courseCode);
                         }
                     }
-
                 }
             }
         });
 
         //navigation
-        binding.AdminHome.setOnClickListener(new View.OnClickListener() {
+        Button adminHomeButton = getActivity().findViewById(R.id.AdminHome);
+        adminHomeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 NavHostFragment.findNavController(AdminEdit.this)
@@ -137,21 +178,26 @@ public class AdminEdit extends Fragment {
         //listening for changes to the sessions available
         boolean sessionsOffered[] = {false, false, false};
 
-        binding.FallSessionChip.setOnClickListener(new View.OnClickListener(){
+        Chip fallChip = getActivity().findViewById(R.id.FallSessionChip);
+        fallChip.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 if(sessionsOffered[0]==false) sessionsOffered[0] = true;
                 else sessionsOffered[0] = false;
             }
         });
-        binding.WinterSessionChip.setOnClickListener(new View.OnClickListener(){
+
+        Chip winterChip = getActivity().findViewById(R.id.WinterSessionChip);
+        winterChip.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 if(sessionsOffered[1]==false) sessionsOffered[1] = true;
                 else sessionsOffered[1] = false;
             }
         });
-        binding.SummerSessionChip.setOnClickListener(new View.OnClickListener(){
+
+        Chip summerChip = getActivity().findViewById(R.id.SummerSessionChip);
+        summerChip.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 if(sessionsOffered[2]==false) sessionsOffered[2] = true;
@@ -160,7 +206,8 @@ public class AdminEdit extends Fragment {
         });
 
         //on submitting the changes
-        binding.submit.setOnClickListener(new View.OnClickListener() {
+        Button submitButton = getActivity().findViewById(R.id.submit);
+        submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -188,13 +235,20 @@ public class AdminEdit extends Fragment {
                         else strSessionsOffered+=1;
                     }
 
+                    System.out.println(strSessionsOffered);
+                    System.out.println(code);
+                    System.out.println(name);
+                    System.out.println(p);
                     //looking through the courses hashset to find which one we want to change
-                    for(Course storedCourse : courses){
+                    for(Course storedCourse : AdminViewModel.courses){
+                        //System.out.println("storedCourse.courseCode: "+storedCourse.courseCode);
+                        //System.out.println("codeOfGetInput: "+codeOfGetInput);
                         if(storedCourse.courseCode.equals(codeOfGetInput)){
-                            System.out.println("storedCourse = "+storedCourse.courseCode);
+                            System.out.println("WE HAVE REACHED");
+                            System.out.println("hashcode: "+storedCourse.hashCode());
                             ref.child(""+storedCourse.hashCode()).child("courseName").setValue(name);
                             ref.child(""+storedCourse.hashCode()).child("courseCode").setValue(code);
-                            //MISSING PREREQUISITE
+                            ref.child(""+storedCourse.hashCode()).child("prerequisites").setValue(p);
                             ref.child(""+storedCourse.hashCode()).child("sessions").setValue(strSessionsOffered);
                         }
                     }

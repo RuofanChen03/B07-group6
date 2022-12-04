@@ -1,7 +1,5 @@
 package com.example.myapplication;
 
-
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -16,6 +14,7 @@ import android.widget.Toast;
 import java.util.HashSet;
 
 import Student.CourseList;
+import Student.TestData;
 
 public class Student_View_Future_activity extends AppCompatActivity {
 
@@ -28,11 +27,11 @@ public class Student_View_Future_activity extends AppCompatActivity {
         //测试课程数据 view
         String text="";
         //MainActivity.Student_Future_Courses = new Student.TestData("a"); //create the existed future course list
-        HashSet<CourseList> TestCourses = Student_Operation.Student_Future_Courses.testCourse;
+        HashSet<CourseList> TestCourses = LoginActivity.Student_Future_Courses.testCourse;
 
         for (CourseList Course: TestCourses) {
-            text = text + Course.courseCode +": "+ Course.offeringSession + '\n'+ "                 " +
-                    Course.prerequisite +'\n';
+            text = text + Course.courseCode +": "+ Course.offeringSession+ '\n'+ "                 " +
+                    Course.prerequisite  +'\n';
         }
 
 
@@ -41,9 +40,9 @@ public class Student_View_Future_activity extends AppCompatActivity {
         FCL.setText(text);
 
         //测试数据导入
-        //AllCourses ChoiceList = new Student.TestData();
+        TestData ChoiceList = new Student.TestData();
         //Creating the instance of ArrayAdapter containing list of names
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, Student_Operation.AllcoursesCode);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, ChoiceList.courseCodeList);
         //Getting the instance of AutoCompleteTextView
         AutoCompleteTextView Choices =  (AutoCompleteTextView)findViewById(R.id.add_future_Choice);
         Choices.setThreshold(1);//will start working from first character
@@ -62,27 +61,27 @@ public class Student_View_Future_activity extends AppCompatActivity {
 
                 //CC.trim();
                 //判断是否在可选的课程列表中
-                if (!Student_Operation.AllcoursesCode.contains(CC)){
+                if (!ChoiceList.courseCodeList.contains(CC)){
                     Toast.makeText(Student_View_Future_activity.this, "The Course is not available now. Please re-enter.", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (Student_Operation.Student_Future_Courses.courseCodeList.contains(CC)){
+                if (LoginActivity.Student_Future_Courses.courseCodeList.contains(CC)){
                     Toast.makeText(Student_View_Future_activity.this, "The Course has existed. Please re-enter.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 //再加一个判断是否在已经上过的past course里 如果上过的话不能再添加
-                if(Student_Operation.Student_Past_Courses.courseCodeList.contains(CC)){
+                if(LoginActivity.Student_Past_Courses.courseCodeList.contains(CC)){
                     Toast.makeText(Student_View_Future_activity.this, "The Course has been taken. Please re-enter.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                for (CourseList C: Student_Operation.CourseHashSet){
+                for (CourseList C: ChoiceList.testCourse){
                     //Toast.makeText(Student_View_Past_activity.this, C.courseCode+"\n"+CC, Toast.LENGTH_LONG).show();
                     if (C.courseCode.equals(CC)){
                         //Toast.makeText(Student_View_Past_activity.this, C.courseCode, Toast.LENGTH_LONG).show();
                         TestCourses.add(C);
-                        Student_Operation.Student_Future_Courses.courseCodeList.add(CC);
+                        LoginActivity.Student_Future_Courses.courseCodeList.add(CC);
                         //Toast.makeText(Student_View_Past_activity.this, C.courseCode, Toast.LENGTH_LONG).show();
                         break;
                     }
@@ -94,8 +93,8 @@ public class Student_View_Future_activity extends AppCompatActivity {
                 //TestCourses = Test.testCourse;
 
                 for (CourseList Course: TestCourses) {
-                    text = text + Course.courseCode +": "+ Course.offeringSession + '\n'+ "                 " +
-                            Course.prerequisite +'\n';
+                    text = text + Course.courseCode +": "+ Course.offeringSession+ '\n'+ "                 " +
+                            Course.prerequisite  +'\n';
                 }
                 //可以不用重新生成text，可以直接再最后加？
                 FCL.setText(text);
@@ -116,7 +115,7 @@ public class Student_View_Future_activity extends AppCompatActivity {
 
                 //CC.trim();
                 //判断是否在已有的课程列表中
-                if (!Student_Operation.Student_Future_Courses.courseCodeList.contains(CC)){
+                if (!LoginActivity.Student_Future_Courses.courseCodeList.contains(CC)){
                     Toast.makeText(Student_View_Future_activity.this, "The Course is not existing. Please re-enter.", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -128,7 +127,7 @@ public class Student_View_Future_activity extends AppCompatActivity {
                     if (C.courseCode.equals(CC)){
                         //Toast.makeText(Student_View_Past_activity.this, C.courseCode, Toast.LENGTH_LONG).show();
                         TestCourses.remove(C);
-                        Student_Operation.Student_Future_Courses.courseCodeList.remove(CC);
+                        LoginActivity.Student_Future_Courses.courseCodeList.remove(CC);
                         //Toast.makeText(Student_View_Past_activity.this, C.courseCode, Toast.LENGTH_LONG).show();
                         break;
                     }
@@ -140,8 +139,8 @@ public class Student_View_Future_activity extends AppCompatActivity {
                 //TestCourses = Test.testCourse;
 
                 for (CourseList Course: TestCourses) {
-                    text = text + Course.courseCode +": "+ Course.offeringSession + '\n'+ "                 " +
-                            Course.prerequisite +'\n';
+                    text = text + Course.courseCode +": "+ Course.offeringSession+ '\n'+ "                 " +
+                            Course.prerequisite  +'\n';
                 }
                 FCL.setText(text);
 

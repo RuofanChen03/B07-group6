@@ -20,11 +20,13 @@ import java.util.List;
 
 public class AdminFragment extends Fragment{
     private AdminFragmentBinding binding;
+    public static AdminViewModel x;
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ){
+        x = new AdminViewModel();
         binding = AdminFragmentBinding.inflate(inflater, container, false);
         binding.AdminCreateButton.setOnClickListener(new View.OnClickListener() {
             @Override
