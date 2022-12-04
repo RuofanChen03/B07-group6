@@ -53,25 +53,33 @@ public class Student_Operation extends AppCompatActivity {
                         //System.out.println(child.child("courseCode"));
 
                         //转换 prerequisites
+                        //System.out.println("1");
                         String prepre = child.child("prerequisites").getValue(String.class);
-                        List<String> prerequisite = Arrays.asList(prepre.split(","));
-
-                        ArrayList<String> pre1=new ArrayList<String>();
-                        //change list to arraylist
-                        for(String s1:prerequisite){
-                            pre1.add(s1);
+                        //System.out.println(prepre);
+                        ArrayList<String> pre1 = new ArrayList<String>();
+                        if (!prepre.equals("")) {
+                            List<String> prerequisite = Arrays.asList(prepre.split(","));
+                            //change list to arraylist
+                            for(String s1:prerequisite){
+                                pre1.add(s1);
+                                //System.out.println(s1);
+                            }
                         }
+                        //System.out.println("1.6");
+
+
 
 
                         //转换offeringSession
+                        //System.out.println("2");
                         ArrayList<String> offeringSession = new ArrayList<String>();
                         String s=child.child("sessions").getValue(String.class);
 
 
                         if (s.length()==3){
-                            if(s.charAt(0)==('1')) offeringSession.add("F");
-                            if(s.charAt(1)=='1') offeringSession.add("W");
-                            if(s.charAt(2)=='1') offeringSession.add("S");
+                            if(s.charAt(0)==('1')) offeringSession.add("Fall");
+                            if(s.charAt(1)=='1') offeringSession.add("Winter");
+                            if(s.charAt(2)=='1') offeringSession.add("Summer");
                         }
 
                         CourseList value = new CourseList(child.child("courseCode").getValue(String.class),
@@ -87,6 +95,7 @@ public class Student_Operation extends AppCompatActivity {
                     //Student_Operation.CourseHashSet = CourseHashSet;
                 } catch (Exception e) {
                     Log.w("warning", "error with persistent listener", e);
+                    //System.out.println("3");
                 }
             }
 
@@ -112,7 +121,7 @@ public class Student_Operation extends AppCompatActivity {
                 }
                  //System.out.println(AllCoursesCode);
             }
-        }, 1000);   //1 seconds
+        }, 500);   //1 seconds
 
         Button go_back = (Button) findViewById(R.id.Go_Back);
         go_back.setOnClickListener(new View.OnClickListener() {

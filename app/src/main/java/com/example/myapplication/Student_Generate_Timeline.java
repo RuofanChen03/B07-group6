@@ -18,6 +18,8 @@ import java.util.HashSet;
 import java.util.List;
 
 import Student.CourseList;
+import Student.Timeline;
+import Student.operationPP;
 
 public class Student_Generate_Timeline extends AppCompatActivity {
 
@@ -92,20 +94,30 @@ public class Student_Generate_Timeline extends AppCompatActivity {
                 //上面这一行代码的作用是让屏幕弹一个下面的那个提示，你想用的话直接改这个string的文字，然后放在你想触发的地方就行，其他不用改
 
                 //在这里加你的timeline的method!!
+                operationPP op = new operationPP();
+                Timeline result = op.generateTimeline(Student_Operation.Student_Past_Courses.CourseHAshSet,
+                        Student_Operation.Student_Future_Courses.CourseHAshSet,
+                        Student_Operation.AllCourseHashSet, year, session);
 
-                HashSet<CourseList> TimeLine = new HashSet<CourseList>();
-                //把你method的输出赋值给TimeLine
+
 
                 String text="";
+                List<String> s = result.sessions;
+                List<ArrayList<String>> c = result.courses;
+
+                for (int i=0; i<s.size(); i++) {
+                    text = text + s.get(i) + ":" + "\n";
+                    for (int j=0; j<c.get(i).size(); j++) {
+                        text = text + c.get(i).get(j) + "\n";
+                    }
+                }
+
 
 
                 //生成一会儿会在屏幕上显示的text 这里改成你要在屏幕上显示的文字 你自己改
                 //text 这个string就是一会儿会在屏幕上显示的东西
                 /*
-                for (CourseList Course: TimeLine) {
-                    text = text + Course.courseCode +": "+ Course.offeringSession + '\n'+ "                 " +
-                            Course.prerequisite +'\n';
-                }
+
                  */
                 //上面这个for循环的例子就是让text的内容是输出所有课程内容
 
