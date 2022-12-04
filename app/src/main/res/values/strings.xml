@@ -41,4 +41,11 @@
     <string name="view_desired_course">View Desired Course</string>
     <string name="past_course_list">Past Course List</string>
     <string name="past_course">Past Course</string>
+    <string name="enter_coursecode">Enter CourseCode</string>
+    <string name="generate_your_timeline">Generate Your Timeline</string>
+    <string name="view_timeline">View Timeline</string>
+    <string name="generate">Generate</string>
+    <string name="sessions">Sessions</string>
+    <string name="i_want_to_start_my_future_courses_from">I want to start my future courses from:</string>
+    <string name="year">Year</string>
 </resources>

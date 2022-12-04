@@ -3,9 +3,9 @@ package Student;
 import java.util.*;
 
 
-public class operationPP {
+public class operation {
 
-    public operationPP() {
+    public operation() {
 
     }
 
