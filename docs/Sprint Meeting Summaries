@@ -1,0 +1,30 @@
+Scrum Meeting Summaries
+Sprint meeting (November 16)
+2 sprints for the remainder?
+Until Nov 27th
+Implement basic functionalities of the software
+Login: firebase setup; login & sign up
+Admin: create 1+ activity where admin can add/edit/remove courses
+Student: view current list courses taken & generation of timeline
+Until Dec 5
+Done together during the zoom session (merging)?
+Firebase adding to admin & student
+Connection of the activities & hooking up to firebase
+Standardized definition of course
+Both working together for user stories
+Determined firebase storing
+November 23rd, 2022 (Scrum Meeting, not sprint meeting)
+(Student: Shanni, Xinyu) still discussed the data structure and all function we may need and may need to be implemented
+(Admin: Rebecca, Juno) Began coding the fragment UIs, and created the Course object with a blank constructor, a filled constructor (code, name, bool[] of offering sessions, List<Course> of prerequisites), and a static list of Course objects to represent the course list.
+(Login: Ruofan) I was sick and missed the group tutorial meeting; but I catched up with the discussed information after.
+Sprint Meeting 2 (November 27th, 2022)
+Things completed:
+Ruofan finished log-in portion, firebase username password storage + junit testing for navigation, also merged student  branch into login2
+Admin finished all core functionality, going to integrate firebase
+Students finished all core functionality, haven’t pushed student timeline functionality yet but finished, going to integrate firebase
+finished stories 6, 2 3
+To-do:
+synchronize login2 branch into main (once program is completely finished)
+beautiffy UI on Sunday, or whenever all code is finished (Discuss style, juno will implement style)
+Discussing contribution of work
+20% each (even split)
