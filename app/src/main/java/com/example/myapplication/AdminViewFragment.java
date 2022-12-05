@@ -97,15 +97,8 @@ public class AdminViewFragment extends Fragment {
         ref.child(courseHashCode).removeValue().addOnCompleteListener(new OnCompleteListener<Void>(){
             @Override
             public void onComplete(@NonNull Task<Void> task){
-                if (task.isSuccessful()){
-                    Toast.makeText(getActivity(), "Double-click to remove this course", Toast.LENGTH_SHORT).show();
-
-                    //System.out.println("HEWWO???????????");
-                }
-                else
-                {
+                if (!task.isSuccessful()){
                     Toast.makeText(getActivity(), "Failed to remove from database, did the course exist?", Toast.LENGTH_SHORT).show();
-                    //System.out.println("HEWWO!!!!!!!!!!!");
                 }
             }
         });

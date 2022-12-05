@@ -28,7 +28,7 @@
         android:layout_width="0dp"
         android:layout_height="38dp"
         android:layout_marginTop="32dp"
-        android:text="Double-click any course to remove it."
+        android:text="Click any course to remove it."
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
