@@ -30,12 +30,12 @@ public class CourseList {
         if (getClass() != obj.getClass())
             return false;
         CourseList other = (CourseList) obj;
-        return other.courseCode==courseCode;
+        return other.courseCode.equals(courseCode);
     }
 
     @Override
     public String toString() {
-        return "Course:" + courseCode + " Oferring Session:" + offeringSession +
+        return "Course:" + courseCode + " Offering Session:" + offeringSession +
                 " Prerequisite:" + prerequisite;
     }
 

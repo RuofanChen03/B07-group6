@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import androidx.fragment.app.Fragment;
 import androidx.annotation.NonNull;
@@ -32,7 +33,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 public class AdminEdit extends Fragment {
 
@@ -41,6 +44,8 @@ public class AdminEdit extends Fragment {
     private View rootView;
     private String DATABASEURL = "https://b07project-943e2-default-rtdb.firebaseio.com/";
     protected HashSet<Course> courses = new HashSet<Course>();
+    ArrayList<ToggleButton> prereqButtons = new ArrayList<ToggleButton>();
+    String p = "";
 
     @Override
     public View onCreateView(
@@ -55,33 +60,110 @@ public class AdminEdit extends Fragment {
 
         int i=10000;
         for(Course c : AdminViewModel.courses){
-            Button b = new Button(getActivity());
+            ToggleButton b = new ToggleButton(getActivity());
             b.setText(c.courseCode);
+            b.setTextOn(c.courseCode);
+            b.setTextOff(c.courseCode);
             b.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             b.setId(i);
             i++;
             ll.addView(b);
+            prereqButtons.add(b);
+            /*
+            System.out.println("Is button "+b.getText()+" already checked? "+b.isChecked());
+            if(b.isChecked()){ //if the prerequisite already exists
+                System.out.println(b.getText() + " is already checked.");
+                b.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View view) {
+                        if(!b.isChecked()){
+                            DeletePrerequisite(c);
+                        }
+                        else{
+                            AddPrerequisite(c);
+                        }
+                    }
+                });
+            }
+
+             */
+            //the prerequisite is being added
             b.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Button searchCourseButton = getActivity().findViewById(R.id.SearchCourseForEditButton);
-                    if(searchCourseButton==null || searchCourseButton.toString().equals("")){
-                        Toast.makeText(getActivity().getApplicationContext(),
-                                "Please enter a course code first!",
-                                Toast.LENGTH_SHORT).show();
+                    if(b.isChecked()){
+                        boolean isHigherPrereq = false;
+                        Button searchCourseButton = getActivity().findViewById(R.id.SearchCourseForEditButton);
+                        if(searchCourseButton==null || searchCourseButton.toString().equals("")){
+                            Toast.makeText(getActivity().getApplicationContext(),
+                                    "Please enter a course code first!",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            System.out.println("codeOfGetInput is: "+codeOfGetInput);
+
+                            String[]prereqsAsArray = c.prerequisites.split(",");
+                            System.out.println("prerequisites of "+c.courseCode+" are...");
+                            for(String pre : prereqsAsArray){
+                                System.out.println(pre);
+                                if(pre.equals(codeOfGetInput)){
+                                    Toast.makeText(getActivity().getApplicationContext(),
+                                            "\""+c.courseCode+"\" cannot be a prerequisite, since "+codeOfGetInput+" is a prerequisite of "+c.courseCode,
+                                            Toast.LENGTH_SHORT).show();
+                                    isHigherPrereq=true;
+                                    b.setChecked(false);
+                                }
+                            }
+                            if(!isHigherPrereq) {
+                                String prereqStr[] = p.split(",");
+                                System.out.println("p is currently: "+p+" b.getText() is currently "+b.getText());
+                                System.out.println("(p is currently:) c.courseCode = "+c.courseCode);
+                                System.out.println(Arrays.asList(prereqStr).indexOf(b.getText())>-1);
+                                if(Arrays.asList(prereqStr).indexOf(b.getText())>-1) {
+                                    System.out.println("(p is currently) if was reached");
+                                    DeletePrerequisite(c);
+                                }
+                                else {
+                                    System.out.println("(p is currently "+p+") else was reached");
+                                    AddPrerequisite(c);
+                                }
+                            }
+                        }
                     }
                     else{
-                        System.out.println("codeOfGetInput is: "+codeOfGetInput);
-                        AddPrerequisite(c);
+                        System.out.println("p is currently "+p+". it has been unchecked");
+                        DeletePrerequisite(c);
                     }
                 }
             });
+
+
         }
 
         return rootView;
     }
+    public void DeletePrerequisite(Course course){
+        String[] prereqsAsArray = (p).split(",");
+        for(int i=0; i<prereqsAsArray.length; i++){
+            System.out.println("p is currently "+p+". we are in the for loop for prereqsasarray = "+prereqsAsArray[i]);
+            if(prereqsAsArray[i].equals(course.courseCode)){
+                prereqsAsArray[i] = ""; // "removes" it from the array. Works because we don't allow empty codes
+                p=""; //rebuilds p
+                Toast.makeText(getActivity().getApplicationContext(),
+                        "\""+course.courseCode+"\" has been removed as a prerequisite.",
+                        Toast.LENGTH_SHORT).show();
+                for(String newPre : prereqsAsArray){
+                    if(!newPre.equals("")){
+                        p += newPre+",";
+                        System.out.println("p is currently:: "+p);
+                    }
+                }
+                System.out.println("p is currently "+p);
+                return;
+            }
 
-    String p = "";
+        }
+    }
 
     public void AddPrerequisite(Course course) {
         String[] prereqsAsArray = (p).split(",");
@@ -104,7 +186,9 @@ public class AdminEdit extends Fragment {
 
         }
 
+
         p += course.courseCode+",";
+        System.out.println("p is currently "+p);
         Toast.makeText(getActivity().getApplicationContext(),
                 "\""+course.courseCode + "\" has been added as a prerequisite.",
                 Toast.LENGTH_SHORT).show();
@@ -115,6 +199,8 @@ public class AdminEdit extends Fragment {
     String name;
     String code;
     String codeOfGetInput;
+    //listening for changes to the sessions available
+    boolean sessionsOffered[] = {false, false, false};
     String[] splitPrerequisites = new String[AdminViewModel.courses.size()];
 
     //checking if the course exists
@@ -125,6 +211,42 @@ public class AdminEdit extends Fragment {
             }
         }
         return false;
+    }
+    public void checkSessions(Course c){
+        for(Course storedCourse : AdminViewModel.courses){
+            if(storedCourse.courseCode.equals(c.courseCode)){
+                ToggleButton sessionChips[] = {getActivity().findViewById(R.id.FallSessionChip),
+                        getActivity().findViewById(R.id.WinterSessionChip),getActivity().findViewById(R.id.SummerSessionChip)};
+                for(int i=0; i<3; i++){
+                    System.out.println("Now we are checking session char "+storedCourse.sessions.charAt(i));
+                    if(storedCourse.sessions.charAt(i)=='0') {
+                        sessionChips[i].setChecked(false);
+                        sessionsOffered[i]=false;
+                    }
+                    else {
+                        sessionChips[i].setChecked(true);
+                        sessionsOffered[i]=true;
+                    }
+                }
+            }
+        }
+    }
+    public void checkPrereqs(Course c){
+        for(Course storedCourse : AdminViewModel.courses){
+            if(storedCourse.courseCode.equals(c.courseCode)){
+                String prereqStr[] = storedCourse.prerequisites.split(",");
+                //loop through each item in the list prereqButtons
+                //if the item appears in the split array prereqStr, then check it
+                for(ToggleButton b : prereqButtons){
+                    if(Arrays.asList(prereqStr).indexOf(b.getText())>-1){
+                        b.setChecked(true);
+                    }
+                    else{
+                        b.setChecked(false);
+                    }
+                }
+            }
+        }
     }
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -155,6 +277,10 @@ public class AdminEdit extends Fragment {
                         if(storedCourse.courseCode.equals(codeOfGetInput)){ //based on the matching key code
                             tempName.setText(storedCourse.courseName);
                             tempCode.setText(storedCourse.courseCode);
+                            p = storedCourse.prerequisites;
+                            System.out.println("About to check sessions");
+                            checkSessions(storedCourse);
+                            checkPrereqs(storedCourse);
                         }
                     }
                 }
@@ -175,10 +301,7 @@ public class AdminEdit extends Fragment {
         SaveInput = getActivity().findViewById(R.id.submit);
         GetInput = getActivity().findViewById(R.id.CourseToEditText);
 
-        //listening for changes to the sessions available
-        boolean sessionsOffered[] = {false, false, false};
-
-        Chip fallChip = getActivity().findViewById(R.id.FallSessionChip);
+        ToggleButton fallChip = getActivity().findViewById(R.id.FallSessionChip);
         fallChip.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -187,7 +310,7 @@ public class AdminEdit extends Fragment {
             }
         });
 
-        Chip winterChip = getActivity().findViewById(R.id.WinterSessionChip);
+        ToggleButton winterChip = getActivity().findViewById(R.id.WinterSessionChip);
         winterChip.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -196,7 +319,7 @@ public class AdminEdit extends Fragment {
             }
         });
 
-        Chip summerChip = getActivity().findViewById(R.id.SummerSessionChip);
+        ToggleButton summerChip = getActivity().findViewById(R.id.SummerSessionChip);
         summerChip.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){

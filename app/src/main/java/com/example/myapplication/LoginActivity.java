@@ -14,16 +14,11 @@ import com.example.myapplication.databinding.ActivityLoginBinding;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import Student.TestData;
 
 public class LoginActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityLoginBinding binding;
-    public static TestData AllCourses;
-    public static TestData Student_Past_Courses;
-    public static TestData Student_Future_Courses;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +26,6 @@ public class LoginActivity extends AppCompatActivity {
 
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        Student_Future_Courses = new Student.TestData("a");
-        Student_Past_Courses = new Student.TestData(1);
-
-
         setSupportActionBar(binding.toolbar);
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);

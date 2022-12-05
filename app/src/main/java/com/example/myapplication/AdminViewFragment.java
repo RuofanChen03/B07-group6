@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -88,23 +89,44 @@ public class AdminViewFragment extends Fragment {
         //System.out.println("REMOVING COURSE OF HASH CODE: " + courseHashCode);
 
         //ref = FirebaseDatabase.getInstance().getReference("Courses");
-
+        for(Course storedCourse : AdminViewModel.courses){
+            p = storedCourse.prerequisites;
+            DeletePrerequisite(course);
+            ref.child(""+storedCourse.hashCode()).child("prerequisites").setValue(p);
+        }
         ref.child(courseHashCode).removeValue().addOnCompleteListener(new OnCompleteListener<Void>(){
             @Override
             public void onComplete(@NonNull Task<Void> task){
-                if (task.isSuccessful()){
-                    Toast.makeText(getActivity(), "Sucessfully removed from database", Toast.LENGTH_SHORT).show();
-
-                    //System.out.println("HEWWO???????????");
-                }
-                else
-                {
+                if (!task.isSuccessful()){
                     Toast.makeText(getActivity(), "Failed to remove from database, did the course exist?", Toast.LENGTH_SHORT).show();
-                    //System.out.println("HEWWO!!!!!!!!!!!");
                 }
             }
         });
+
         return;
+    }
+    String p = "";
+    public void DeletePrerequisite(Course course){
+        String[] prereqsAsArray = (p).split(",");
+        for(int i=0; i<prereqsAsArray.length; i++){
+            System.out.println("p is currently "+p+". we are in the for loop for prereqsasarray = "+prereqsAsArray[i]);
+            if(prereqsAsArray[i].equals(course.courseCode)){
+                prereqsAsArray[i] = ""; // "removes" it from the array. Works because we don't allow empty codes
+                p=""; //rebuilds p
+                Toast.makeText(getActivity().getApplicationContext(),
+                        "\""+course.courseCode+"\" has been removed as a prerequisite.",
+                        Toast.LENGTH_SHORT).show();
+                for(String newPre : prereqsAsArray){
+                    if(!newPre.equals("")){
+                        p += newPre+",";
+                        System.out.println("p is currently:: "+p);
+                    }
+                }
+                System.out.println("p is currently "+p);
+                return;
+            }
+
+        }
     }
 
     static void removeCourse(Course course)
@@ -135,12 +157,13 @@ public class AdminViewFragment extends Fragment {
             b.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(getActivity().getBaseContext(), b.getText(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity().getBaseContext(), b.getText() + " Removed", Toast.LENGTH_SHORT).show();
                     if (ll != null) {
-                        System.out.println("button clicked");
 
                         removeCourseFromDatabase(current);
                         renderCourses(ll);
+                        NavHostFragment.findNavController(AdminViewFragment.this)
+                                .navigate(R.id.action_AdminViewFragment_self);
                     }
 
                 }
@@ -155,6 +178,7 @@ public class AdminViewFragment extends Fragment {
         return;
     }
 
+    public LinearLayout ll;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -165,7 +189,7 @@ public class AdminViewFragment extends Fragment {
         //test.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
         //test.setId(2);
 
-        LinearLayout ll = (LinearLayout) rootView.findViewById(R.id.linearlayout);
+        ll = (LinearLayout) rootView.findViewById(R.id.linearlayout);
 
         courses = AdminViewModel.courses;
         System.out.println("TOTAL COURSES SIZE: " + courses.size());
