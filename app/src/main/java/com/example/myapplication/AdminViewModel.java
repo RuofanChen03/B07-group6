@@ -47,7 +47,6 @@ public class AdminViewModel {
                         Log.i("course added; ", course.toString());
                     }
 
-
                 }
                 catch(Exception e){
                     Log.w("warning","error with persistent listener", e);

@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -163,11 +164,13 @@ public class AdminViewFragment extends Fragment {
             b.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(getActivity().getBaseContext(), b.getText(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity().getBaseContext(), b.getText() + " Removed", Toast.LENGTH_SHORT).show();
                     if (ll != null) {
 
                         removeCourseFromDatabase(current);
                         renderCourses(ll);
+                        NavHostFragment.findNavController(AdminViewFragment.this)
+                                .navigate(R.id.action_AdminViewFragment_self);
                     }
 
                 }
@@ -182,6 +185,7 @@ public class AdminViewFragment extends Fragment {
         return;
     }
 
+    public LinearLayout ll;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -192,7 +196,7 @@ public class AdminViewFragment extends Fragment {
         //test.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
         //test.setId(2);
 
-        LinearLayout ll = (LinearLayout) rootView.findViewById(R.id.linearlayout);
+        ll = (LinearLayout) rootView.findViewById(R.id.linearlayout);
 
         courses = AdminViewModel.courses;
         System.out.println("TOTAL COURSES SIZE: " + courses.size());
