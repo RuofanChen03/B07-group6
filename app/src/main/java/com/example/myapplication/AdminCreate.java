@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import androidx.fragment.app.Fragment;
 import androidx.annotation.NonNull;
@@ -33,6 +34,7 @@ import java.lang.ref.Reference;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Locale;
 
 public class AdminCreate extends Fragment{
 
@@ -58,8 +60,10 @@ public class AdminCreate extends Fragment{
         int i=1000;
         //getActivity().setContentView(R.layout.fragment_admin_create);
         for(Course c : AdminViewModel.courses){
-            Button b = new Button(getActivity());
+            ToggleButton b = new ToggleButton(getActivity());
             b.setText(c.courseCode);
+            b.setTextOn(c.courseCode);
+            b.setTextOff(c.courseCode);
             b.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
             b.setId(i);
             i++;
@@ -67,7 +71,8 @@ public class AdminCreate extends Fragment{
             b.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    AddPrerequisite(c);
+                    if(b.isChecked()) AddPrerequisite(c);
+                    else DeletePrerequisite(c);
                 }
             });
         }
@@ -77,16 +82,36 @@ public class AdminCreate extends Fragment{
     }
     String p = "";
 
+    public void DeletePrerequisite(Course course){
+        String[] prereqsAsArray = (p).split(",");
+        for(int i=0; i<prereqsAsArray.length; i++){
+            if(prereqsAsArray[i].equals(course.courseCode)){
+                prereqsAsArray[i] = ""; // "removes" it from the array. Works because we don't allow empty codes
+                p=""; //rebuilds p
+                Toast.makeText(getActivity().getApplicationContext(),
+                        "\""+course.courseCode+"\" has been removed as a prerequisite.",
+                        Toast.LENGTH_SHORT).show();
+                for(String newPre : prereqsAsArray){
+                    if(!newPre.equals("")){
+                        p += newPre+",";
+                    }
+                }
+                return;
+            }
+
+        }
+    }
+
     public void AddPrerequisite(Course course) {
+
         String[] prereqsAsArray = (p).split(",");
         for(String pre : prereqsAsArray){
             if(pre.equals(course.courseCode)){
-                Toast.makeText(getActivity().getApplicationContext(),
-                        "\""+course.courseCode+"\" has already been included as a prerequisite!",
-                        Toast.LENGTH_SHORT).show();
+                DeletePrerequisite(course);
                 return;
             }
         }
+
         prereqsAsArray = course.prerequisites.split(",");
         for(String pre : prereqsAsArray){
             if(pre.equals(code)){
@@ -140,7 +165,7 @@ public class AdminCreate extends Fragment{
         GetInput = getActivity().findViewById(R.id.CreateNameInput);
         boolean sessionsOffered[] = {false, false, false};
 
-        Chip fallChip = getActivity().findViewById(R.id.FallSessionChip);
+        ToggleButton fallChip = getActivity().findViewById(R.id.FallSessionChip);
         fallChip.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -148,7 +173,7 @@ public class AdminCreate extends Fragment{
                 else sessionsOffered[0] = false;
             }
         });
-        Chip winterChip = getActivity().findViewById(R.id.WinterSessionChip);
+        ToggleButton winterChip = getActivity().findViewById(R.id.WinterSessionChip);
         winterChip.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -157,7 +182,7 @@ public class AdminCreate extends Fragment{
                 else sessionsOffered[1] = false;
             }
         });
-        Chip summerChip = getActivity().findViewById(R.id.SummerSessionChip);
+        ToggleButton summerChip = getActivity().findViewById(R.id.SummerSessionChip);
         summerChip.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -188,6 +213,11 @@ public class AdminCreate extends Fragment{
                             "Code cannot be empty!",
                             Toast.LENGTH_SHORT).show();
                 }
+                else if(code.indexOf(",")>-1){
+                    Toast.makeText(getActivity().getApplicationContext(),
+                            "Code cannot contain any commas!",
+                            Toast.LENGTH_SHORT).show();
+                }
                 else {
 
                     String strSessionsOffered = "";
@@ -195,12 +225,14 @@ public class AdminCreate extends Fragment{
                         if(offered==false)strSessionsOffered+=0;
                         else strSessionsOffered+=1;
                     }
-                    Course createdCourse = new Course(name, code, strSessionsOffered, p);
+                    Course createdCourse = new Course(name, code.toUpperCase(), strSessionsOffered, p);
+                    /*
                     for(Course storedCourse : courses){
                         if(storedCourse.courseCode.equals(createdCourse.courseCode)){
                             ref.child(""+storedCourse.hashCode()).child("prerequisites").setValue(createdCourse.prerequisites);
                         }
                     }
+                    */
                     ref.child("" + createdCourse.hashCode()).setValue(createdCourse);
                     Log.i("course created", createdCourse.toString());
 

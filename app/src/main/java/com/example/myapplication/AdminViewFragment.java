@@ -88,12 +88,16 @@ public class AdminViewFragment extends Fragment {
         //System.out.println("REMOVING COURSE OF HASH CODE: " + courseHashCode);
 
         //ref = FirebaseDatabase.getInstance().getReference("Courses");
-
+        for(Course storedCourse : AdminViewModel.courses){
+            p = storedCourse.prerequisites;
+            DeletePrerequisite(course);
+            ref.child(""+storedCourse.hashCode()).child("prerequisites").setValue(p);
+        }
         ref.child(courseHashCode).removeValue().addOnCompleteListener(new OnCompleteListener<Void>(){
             @Override
             public void onComplete(@NonNull Task<Void> task){
                 if (task.isSuccessful()){
-                    Toast.makeText(getActivity(), "Sucessfully removed from database", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Double-click to remove this course", Toast.LENGTH_SHORT).show();
 
                     //System.out.println("HEWWO???????????");
                 }
@@ -104,7 +108,31 @@ public class AdminViewFragment extends Fragment {
                 }
             }
         });
+
         return;
+    }
+    String p = "";
+    public void DeletePrerequisite(Course course){
+        String[] prereqsAsArray = (p).split(",");
+        for(int i=0; i<prereqsAsArray.length; i++){
+            System.out.println("p is currently "+p+". we are in the for loop for prereqsasarray = "+prereqsAsArray[i]);
+            if(prereqsAsArray[i].equals(course.courseCode)){
+                prereqsAsArray[i] = ""; // "removes" it from the array. Works because we don't allow empty codes
+                p=""; //rebuilds p
+                Toast.makeText(getActivity().getApplicationContext(),
+                        "\""+course.courseCode+"\" has been removed as a prerequisite.",
+                        Toast.LENGTH_SHORT).show();
+                for(String newPre : prereqsAsArray){
+                    if(!newPre.equals("")){
+                        p += newPre+",";
+                        System.out.println("p is currently:: "+p);
+                    }
+                }
+                System.out.println("p is currently "+p);
+                return;
+            }
+
+        }
     }
 
     static void removeCourse(Course course)
@@ -137,7 +165,6 @@ public class AdminViewFragment extends Fragment {
                 public void onClick(View view) {
                     Toast.makeText(getActivity().getBaseContext(), b.getText(), Toast.LENGTH_SHORT).show();
                     if (ll != null) {
-                        System.out.println("button clicked");
 
                         removeCourseFromDatabase(current);
                         renderCourses(ll);
